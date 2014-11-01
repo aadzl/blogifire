@@ -1,0 +1,43 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+body { font-size: 12px; margin-bottom: 30px; font-family: Roboto,,Arial,sans-serif; background-color: #fff; }
+html { position: relative; min-height: 100%; }
+ul { list-style: none; padding: 0; margin: 0; }
+
+/*[header]*/
+.header { background-color: #ebebeb; text-transform: uppercase; border-bottom: 1px solid #e3e3e3; line-height: 20px; }
+.header a { color: #333; text-decoration: none !important; }
+
+/*[nav-sections]*/
+.nav-sections { float: left; position: relative; margin-right: 10px; }
+.nav-sections .nav-sections-title { cursor: pointer; line-height: 55px; width: 140px; padding: 0 10px; text-align: center; background-color: #e3e3e3; }
+.nav-sections .nav-sections-title a { display: block; height: 100%; }
+.nav-sections .nav-sections-title i { margin-right: 10px; }
+.nav-sections .nav-sections-list { position: absolute; top: 100%; left: 0; width: 100%; background-color: #ebebeb; border-top: 1px solid #d9d9d9; display: none; }
+.nav-sections .nav-sections-list .nav-sections-item { border-bottom: 1px solid #e3e3e3; line-height: 55px; text-align: center; }
+.nav-sections .nav-sections-list .nav-sections-item a { display: block; height: 100%; }
+.nav-sections .nav-sections-list .nav-sections-item:last-child { border-bottom: none; }
+.nav-sections .nav-sections-list .nav-sections-item:hover { background-color: #e3e3e3; }
+.nav-sections .nav-sections-list .nav-sections-item.active { display: none; }
+
+/*[nav-actions]*/
+.nav-actions { padding: 15px; }
+.nav-actions li { float: left; margin-right: 10px; height: 25px; }
+.nav-actions li a { background-color: #fff; display: block; height: 25px; line-height: 25px; padding: 0 10px; border-radius: 2px; box-shadow: 0 1px 0 rgba(0,0,0,0.2); }
+.nav-actions li.sep { width: 1px; background-color: #ccc; height: 25px; }
+.nav-actions li i { margin-right: 8px; }
+
+.nav-actions-icon li { float: right; }
+.nav-actions-icon li a { display: block; padding: 0; width:25px;text-align:center; }
+.nav-actions-icon li i { margin: 0; }
+
+/*[content]*/
+.content { padding: 30px; color: #444; }
+
+/*[footer]*/
+.footer { position: absolute; bottom: 0; width: 100%; height: 30px; background-color: #ddd; color: #666; line-height: 30px; padding: 0 10px; font-size: 11px; }
+.footer a { color: #666; }
+
+/*[form]*/
+.form-item { margin-bottom: 10px; }
+.form-control { line-height: 1.42857143; height: 34px; padding: 6px 12px; color: #999; background-color: #333; background-image: none; border: none; border-radius: 0; }
+.btn { display: inline-block; padding: 6px 12px; margin-bottom: 0; height: 34px; font-weight: normal; line-height: 1.42857143; text-align: center; white-space: nowrap; vertical-align: top; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-image: none; border: none; border-radius: 0; background-color: #ccc; }
