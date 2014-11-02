@@ -87,13 +87,25 @@
             </tbody>
         </table>
 
+        <!-- TinyMCE -->
+        <form method="post">
+            <textarea></textarea>
+        </form>
+
     </div>
     <div class="footer">
         <div class="pull-left">&copy; <a href="#">BlogiFire</a> 0.1</div>
     </div>
 
-    <script src="js/bootstrap.js"></script>
     <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.js"></script>
     <script src="js/scripts.js"></script>
+    <!-- TinyMCE editor -->
+    <script src="app/editors/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea"
+         });
+    </script>
 </body>
 </html>
