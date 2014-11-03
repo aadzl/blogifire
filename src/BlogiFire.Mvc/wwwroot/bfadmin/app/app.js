@@ -34,6 +34,19 @@
                         templateUrl: "app/content/contentView.html",
                         controller: "ContentCtrl as vm"
                     })
+                    .state("postEdit", {
+                        url: "/content/postedit/:postId",
+                        templateUrl: "app/content/postEditView.html",
+                        controller: "PostEditCtrl as vm",
+                        resolve: {
+                            postResource: "postResource",
+
+                            post: function (postResource, $stateParams) {
+                                var postId = $stateParams.postId;
+                                return postResource.get({ postId: postId }).$promise;
+                            }
+                        }
+                    })
                     .state("settings", {
                         url: "/settings",
                         templateUrl: "app/settings/settingsView.html",
