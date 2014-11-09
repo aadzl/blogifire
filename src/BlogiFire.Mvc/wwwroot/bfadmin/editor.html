@@ -5,6 +5,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="app/editors/summernote/summernote.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
 <body class="ltr" ng-app="blogifire">
@@ -52,11 +53,13 @@
         </ul>
     </div>
     <div class="content">
-        <div ui-view></div>
+        <input type="text" class="form-control" placeholder="post title" />
+        <div class="summernote"></div>
     </div>
     <div class="footer">
         <div class="pull-left">&copy; <a href="#">BlogiFire</a> 0.1</div>
     </div>
+
     <!-- Library Scripts -->
     <script src="js/jquery.min.js"></script>
     <script src="js/angular.js"></script>
@@ -67,6 +70,7 @@
     <script src="js/scripts.js"></script>
     <!-- Application Script -->
     <script src="app/app.js"></script>
+    <script type="text/javascript" src="app/editors/summernote/summernote.js"></script>
     <!-- Services -->
     <script src="common/services/common.services.js"></script>
     <script src="common/services/postResource.js"></script>
@@ -77,5 +81,23 @@
     <script src="app/dashboard/dashboardCtrl.js"></script>
     <script src="app/help/helpCtrl.js"></script>
     <script src="app/settings/settingsCtrl.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                height: 400,
+                toolbar: [
+                   //[groupname, [button list]]
+                   ['style', ['style']],
+                   ['fontsize', ['fontsize']],
+                   ['style', ['bold', 'italic', 'underline', 'clear']],
+                   ['font', ['strikethrough']],
+                   ['color', ['color']],
+                   ['para', ['ul', 'ol', 'paragraph']],
+                   ['height', ['height']],
+                   ['insert', ['link', 'table']]
+                ]
+            });
+        });
+    </script>
 </body>
 </html>

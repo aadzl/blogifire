@@ -24,13 +24,13 @@
                 $urlRouterProvider.otherwise("/");
 
                 $stateProvider
-                    .state("home", {
-                        url: "/",
-                        templateUrl: "app/dashboard/dashboardView.html",
-                        controller: "DashboardCtrl as vm"
-                    })
+                    //.state("home", {
+                    //    url: "/",
+                    //    templateUrl: "app/dashboard/dashboardView.html",
+                    //    controller: "DashboardCtrl as vm"
+                    //})
                     .state("content", {
-                        url: "/content",
+                        url: "/",
                         templateUrl: "app/content/contentView.html",
                         controller: "ContentCtrl as vm"
                     })
