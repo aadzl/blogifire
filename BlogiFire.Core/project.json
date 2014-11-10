@@ -1,0 +1,17 @@
+﻿{
+    "dependencies": {
+        "Microsoft.AspNet.Mvc": "6.0.0-alpha4"
+    },
+
+    "frameworks" : {
+        "aspnet50" : { 
+            "dependencies": {
+            }
+        },
+        "aspnetcore50" : { 
+            "dependencies": {
+                "System.Runtime": "4.0.20.0"
+            }
+        }
+    }
+}
