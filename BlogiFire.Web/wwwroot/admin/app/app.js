@@ -20,22 +20,40 @@
             $stateProvider
             .state("postList", {
                 url: "/",
-                templateUrl: "app/content/posts.html",
-                controller: "PostsCtrl as vm"
+                templateUrl: "app/posts/postListView.html",
+                controller: "PostListCtrl as vm"
             })
             .state("postEdit", {
-                url: "/content/edit/:postId",
-                templateUrl: "app/content/edit.html",
-                controller: "EditCtrl as vm",
+                url: "/posts/:Id",
+                templateUrl: "app/posts/postEditView.html",
+                controller: "PostEditCtrl as vm",
                 resolve: {
                     postResource: "postResource",
 
                     post: function (postResource, $stateParams) {
-                        var postId = $stateParams.postId;
-                        return postResource.get({ postId: postId }).$promise;
+                        var Id = $stateParams.Id;
+                        return postResource.get({ Id: Id }).$promise;
                     }
                 }
             })
+            .state("commentsList", {
+                url: "/comments",
+                templateUrl: "app/comments/commentListView.html",
+                controller: "CommentListCtrl as vm"
+            })
+            //.state("commentEdit", {
+            //    url: "/comments/:Id",
+            //    templateUrl: "app/comments/commentEditView.html",
+            //    controller: "CommentEditCtrl as vm",
+            //    resolve: {
+            //        commentResource: "commentResource",
+
+            //        comment: function (commentResource, $stateParams) {
+            //            var Id = $stateParams.Id;
+            //            return commentResource.get({ Id: Id }).$promise;
+            //        }
+            //    }
+            //})
             .state("settings", {
                 url: "/settings",
                 templateUrl: "app/settings/settings.html",

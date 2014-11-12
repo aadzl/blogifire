@@ -24,7 +24,7 @@ namespace BlogiFire.Web.Areas.Blog.Models
 
             options.UseSqlServer(@"Server=.\SQLEXPRESS;Database=BlogiFire;integrated security=True;");
 
-            Init();
+            //Init();
         }
 
         protected void Init()

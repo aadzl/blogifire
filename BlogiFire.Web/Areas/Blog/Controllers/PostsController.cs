@@ -14,9 +14,16 @@ namespace BlogiFire.Web.Areas.Blog.Controllers
 
             post.Author = "admin";
             post.Title = "test";
+            post.Content = "this is a post";
+            post.Published = System.DateTime.UtcNow;
+
+            _context.Database.EnsureCreated();
+
+            _context.Posts.Add(post);
+            _context.SaveChanges();
 
             //_context.Database.EnsureDeleted();
-            //_context.Database.EnsureCreated();
+            
 
             ViewBag.Message = "Your application description page." + post.Author + " : " + post.Title;
 

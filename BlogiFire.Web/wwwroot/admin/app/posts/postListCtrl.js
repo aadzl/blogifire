@@ -1,8 +1,8 @@
 (function () {
     "use strict";
-    angular.module("blogifire").controller("PostsCtrl", ["postResource", PostsCtrl]);
+    angular.module("blogifire").controller("PostListCtrl", ["postResource", PostListCtrl]);
 
-    function PostsCtrl(postResource) {
+    function PostListCtrl(postResource) {
         var vm = this;
 
         postResource.query(function(data) {
