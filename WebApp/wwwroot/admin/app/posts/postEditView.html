@@ -58,11 +58,11 @@
 		b1 += '</ul></div></div>';
 
 		var b2 = '<ul class="nav-actions pull-right">';
-		b2 += '<li><a href="index.html"><i class="fa fa-check"></i>Publish</a></li>';
-		b2 += '<li><a href="index.html"><i class="fa fa-save"></i>Save</a></li>';
+		b2 += '<li><a href="" ng-click="vm.publish()"><i class="fa fa-check"></i>Publish</a></li>';
+		b2 += '<li><a href="" ng-click="vm.save()"><i class="fa fa-save"></i>Save</a></li>';
 		b2 += '</ul>';
 
-		$('.btn-toolbar').prepend($('<ul class="nav-actions"><li><a href="index.html"><i class="fa fa-arrow-left"></i>Back</a></li></ul>'));
+		$('.btn-toolbar').prepend($('<ul class="nav-actions"><li><a href="" ng-click="vm.cancel()"><i class="fa fa-arrow-left"></i>Back</a></li></ul>'));
 		$('.btn-toolbar').append($(b1));
 		$('.btn-toolbar').append($(b2));
 		$('.edit-controls').show(); // hide/show to prevent flicking in toolbar on load

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BlogiFire.Core.Data
 {
-    public class PostRepository
+    public class PostRepository : IPostRepository
     {
         readonly List<Post> _items = new List<Post>();
         public IEnumerable<Post> GetAll

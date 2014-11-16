@@ -25,7 +25,7 @@
             }
         ];
 
-        var postUrl = "/api/posts";
+        var postUrl = "/blog/api/posts";
         var editingRegex = new RegExp(postUrl + "/[0-9][0-9]*", '');
 
         $httpBackend.whenGET(editingRegex).respond(function (method, url, data) {

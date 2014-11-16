@@ -72,3 +72,4 @@
 /// <reference path="admin/js/bootstrap.js" />
 /// <reference path="admin/js/jquery.min.js" />
 /// <reference path="admin/js/scripts.js" />
+/// <reference path="admin/common/services/dataservice.js" />

@@ -17,8 +17,6 @@ namespace WebApp.Models
     {
         private static bool _created = false;
 
-        public DbSet<BlogiFire.Core.Data.Post> Posts { get; set; }
-
         public ApplicationDbContext()
         {            
             // Create the database and schema if it doesn't exist
