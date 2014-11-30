@@ -13,7 +13,7 @@ namespace Sample.Migrations
         {
             get
             {
-                return "201411281850048_bf01";
+                return "201411300546380_bf01";
             }
         }
         
@@ -36,14 +36,16 @@ namespace Sample.Migrations
                         b.Property<string>("AuthorEmail");
                         b.Property<string>("AuthorId");
                         b.Property<string>("AuthorName");
+                        b.Property<string>("CoverImage");
                         b.Property<int>("DaysToComment");
                         b.Property<string>("Description");
                         b.Property<int>("Id")
                             .GenerateValuesOnAdd();
-                        b.Property<string>("Image");
                         b.Property<bool>("IsModerated");
                         b.Property<bool>("IsSelected");
+                        b.Property<string>("LogoImage");
                         b.Property<int>("PostsPerPage");
+                        b.Property<string>("ProfileImage");
                         b.Property<string>("Theme");
                         b.Property<string>("Title");
                         b.Key("Id");

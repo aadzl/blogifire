@@ -1,9 +1,9 @@
 (function () {
     "use strict";
     angular.module("blogifire").controller("postListCtrl",
-        ["$window", "postResource", postListCtrl]);
+        ["$rootScope", "$window", "postResource", postListCtrl]);
 
-    function postListCtrl($window, postResource) {
+    function postListCtrl($rootScope, $window, postResource) {
         var vm = this;
         vm.pager = {};
         vm.pager.items = [];

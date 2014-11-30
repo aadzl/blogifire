@@ -1,8 +1,8 @@
 ﻿(function () {
     "use strict";
-    angular.module("blogifire").controller("postEditCtrl", ["post", "$state", "$window", postEditCtrl]);
+    angular.module("blogifire").controller("postEditCtrl", ["post", "$state", "$window", "$http", postEditCtrl]);
 
-    function postEditCtrl(post, $state, $window) {
+    function postEditCtrl(post, $state, $window, $http) {
         var vm = this;
 
         vm.post = post;

@@ -3,13 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BlogiFire.Models
 {
-    public class Author
-    {
-        public string Name { get; set; }
-        public bool IsAuthenticated { get; set; }
-        public bool HasBlog { get; set; }
-    }
-
     public class Blog
     {
         public Blog()
@@ -18,7 +11,6 @@ namespace BlogiFire.Models
             DaysToComment = 0;
             IsModerated = false;
             Theme = "standard";
-            Image = "site.jpg";
         }
         public int Id { get; set; }
         [Required]
@@ -33,7 +25,9 @@ namespace BlogiFire.Models
         public int DaysToComment { get; set; }
         public bool IsModerated { get; set; }
         public string Theme { get; set; }
-        public string Image { get; set; }
+        public string ProfileImage { get; set; }
+        public string CoverImage { get; set; }
+        public string LogoImage { get; set; }
         public bool IsSelected { get; set; }
     }
 

@@ -16,12 +16,14 @@ namespace Sample.Migrations
                         AuthorEmail = c.String(),
                         AuthorId = c.String(),
                         AuthorName = c.String(),
+                        CoverImage = c.String(),
                         DaysToComment = c.Int(nullable: false),
                         Description = c.String(),
-                        Image = c.String(),
                         IsModerated = c.Boolean(nullable: false),
                         IsSelected = c.Boolean(nullable: false),
+                        LogoImage = c.String(),
                         PostsPerPage = c.Int(nullable: false),
+                        ProfileImage = c.String(),
                         Theme = c.String(),
                         Title = c.String()
                     })

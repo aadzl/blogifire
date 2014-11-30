@@ -20,5 +20,54 @@
 </div>
 <div class="content">
 	<h2>{{vm.Title}}</h2>
-	<p>This is settings page</p>
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="txtTitle">Title:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtTitle" placeholder="Blog name" ng-model="vm.item.Title">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="txtDescription">Description:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtDescription" placeholder="Short description" ng-model="vm.item.Description">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="txtTheme">Theme:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtTheme" placeholder="Theme" ng-model="vm.item.Theme">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="txtLogoImage">Logo image:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtLogoImage" placeholder="Logo image" ng-model="vm.item.LogoImage">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="txtCoverImage">Cover image:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtCoverImage" placeholder="Cover image" ng-model="vm.item.CoverImage">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="txtPostsPerPage">Posts per page:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtPostsPerPage" placeholder="Posts per page" ng-model="vm.item.PostsPerPage">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="txtDaysToComment">Days to comment:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtDaysToComment" placeholder="Days to comment" ng-model="vm.item.DaysToComment">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="txtIsModerated">Moderate comments:</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" id="txtIsModerated" placeholder="Moderate comments" ng-model="vm.item.IsModerated">
+            </div>
+        </div>
+</form>
 </div>

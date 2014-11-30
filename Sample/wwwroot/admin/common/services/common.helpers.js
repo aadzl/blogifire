@@ -25,3 +25,17 @@
     };
     init();
 }
+
+function uploadFile(file, editor, welEditable) {
+    $.ajax({
+        data: file,
+        type: "POST",
+        url: "/blog/api/upload/" + file.name,
+        cache: false,
+        contentType: "multipart/form-data",
+        processData: false,
+        success: function (url) {
+            editor.insertImage(welEditable, url);
+        }
+    });
+}

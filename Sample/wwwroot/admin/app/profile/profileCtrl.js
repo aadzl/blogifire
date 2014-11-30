@@ -1,10 +1,14 @@
 ﻿(function () {
     "use strict";
-    angular.module("blogifire").controller("ProfileCtrl", [ProfileCtrl]);
+    angular.module("blogifire").controller("profileCtrl", ["profileResource", profileCtrl]);
 
-    function ProfileCtrl() {
+    function profileCtrl(profileResource) {
         var vm = this;
-
         vm.Title = "Profile";
+        vm.item = {};
+
+        profileResource.get(function (data) {
+            vm.item = data;
+        });
     }
 }());

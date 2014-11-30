@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Mvc;
 
-namespace Sample.Blog.Api
+namespace BlogiFire.Api
 {
     [Route("blog/api/[controller]")]
     public class AuthController : Controller
@@ -12,5 +12,6 @@ namespace Sample.Blog.Api
         {
             return User.Identity.IsAuthenticated ? User.Identity.Name : "anonymous";
         }
+
     }
 }

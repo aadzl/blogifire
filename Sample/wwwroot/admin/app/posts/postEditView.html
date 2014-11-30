@@ -22,12 +22,6 @@
                     <input type="text" id="txtTags" tabindex="2" placeholder="Tags, comma delimeted" class="form-control" />
                 </div>
 			</div>
-			<!--<div class="form-group">
-				<div class="col-lg-10 col-lg-offset-2">
-					<button class="btn btn-default">Cancel</button>
-					<button class="btn btn-primary" type="submit">Submit</button>
-				</div>
-			</div>-->
 		</fieldset>
 	</div>
 </div>
@@ -36,6 +30,24 @@
 </div>
 <script type="text/javascript" src="app/editors/summernote/summernote.js"></script>
 <script type="text/javascript">
+    var upload = function (file) {
+        $.ajax({
+            url: '/blog/api/upload',
+            type: 'POST',
+            data: file,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: "multipart/form-data",
+            success: function (data, textStatus, jqXHR) {
+                toastr.success('Uploaded');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                toastr.error('Error');
+            }
+        });
+    }
+
 	$(document).ready(function() {
 		$('.summernote').summernote({
 			height: 400,
@@ -49,8 +61,7 @@
 			],
 			onImageUpload: function(files, editor, $editable) {
 				if(files.length > 0){
-			        console.log('image upload:', files.length, editor, $editable);
-					alert('will save to disk');
+				    uploadFile(files[0], editor, $editable);
 				}
 			}
 		});

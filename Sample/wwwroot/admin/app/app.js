@@ -43,7 +43,7 @@
             .state("settings", {
                 url: "/settings",
                 templateUrl: "app/settings/settings.html",
-                controller: "SettingsCtrl as vm",
+                controller: "settingsCtrl as vm",
                 authenticate: true
             })
             .state("help", {
@@ -55,19 +55,21 @@
             .state("profile", {
                 url: "/profile",
                 templateUrl: "app/profile/profile.html",
-                controller: "ProfileCtrl as vm",
+                controller: "profileCtrl as vm",
                 authenticate: true
             })
         }]
     );
 
-    app.run(function ($rootScope, $state, authService) {
-        $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-          // check authentication and redirect to login if false
-          if (toState.authenticate && !authService.isAuthenticated) {
-              window.location.href = '/account/login';
-          }
-      });
-  });
+    app.run(function ($rootScope, $state, $http, authService) {
+        $rootScope.$on("$stateChangeStart",
+            function (event, toState, toParams, fromState, fromParams) {
+                // check authentication and redirect to login if false
+                if (toState.authenticate && !authService.isAuthenticated) {
+                    window.location.href = '/account/login';
+                }
+            }
+        );
+    });
 
 }());

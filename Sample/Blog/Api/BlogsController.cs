@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using BlogiFire.Models;
+using System.Linq;
 
 namespace BlogiFire.Api
 {
-    [Route("blog/api/[controller]")]
     [Authorize]
     public class BlogsController : Controller
     {
@@ -14,22 +14,27 @@ namespace BlogiFire.Api
             this.db = db;
         }
 
-        // GET: blog/api/blogs
-        [HttpGet]
+        [Route("blog/api/blogs")]
         public async Task<ActionResult> Get()
         {
             return Json(await db.All());
         }
 
-        // GET: blog/api/blogs/2
-        [HttpGet("{id}")]
+        [Route("blog/api/blogs/{id:int}")]
         public async Task<ActionResult> Get(int id)
         {
             return Json(await db.GetById(id));
         }
 
-        // POST: blog/api/blogs
-        [HttpPost]
+        [Route("blog/api/settings")]
+        public async Task<ActionResult> GetSettings()
+        {
+            var blogs = await db.Find(b => b.AuthorId == User.Identity.Name);
+            var blog = blogs.FirstOrDefault();
+            return Json(blog);
+        }
+
+        [Route("blog/api/blogs/add")]
         public async Task<ActionResult> Post([FromBody]Blog item)
         {
             if (!ModelState.IsValid)
@@ -50,8 +55,7 @@ namespace BlogiFire.Api
             return new ObjectResult(item);
         }
         
-        // DELETE: blog/api/blogs/2
-        [HttpDelete("{id}")]
+        [Route("blog/api/blogs/remove/{id:int}")]
         public async Task<string> Delete(int id)
         {
             await db.Delete(id);
