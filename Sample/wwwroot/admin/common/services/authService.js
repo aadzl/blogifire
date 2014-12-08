@@ -6,7 +6,7 @@
     var name = 'anonymous';
     var getName = function () {
         $.ajax({
-            url: '/blog/api/auth',
+            url: webApiRoot + 'auth',
             success: function (data) { name = data; },
             async: false
         });

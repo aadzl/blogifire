@@ -1,10 +1,11 @@
-﻿using BlogiFire.Models;
+﻿using BlogiFire.Core.Data;
 using Microsoft.AspNet.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlogiFire.Controllers
 {
+    [Route("blog")]
     public class PostsController : Controller
     {
         #region Constructor and private memeber
@@ -22,11 +23,10 @@ namespace BlogiFire.Controllers
         #endregion
 
         // GET: blog
-        [Route("blog")]
         public async Task<IActionResult> Index()
         {
             int page = 1;
-            ViewBag.Title = "Blog posts ";    
+            ViewBag.Title = "Blog posts ";
             var posts = await postsDb.Find(p => p.Visible == true, page, pageSize);
 
             ViewBag.NewerPage = 0;
@@ -36,7 +36,7 @@ namespace BlogiFire.Controllers
         }
 
         // GET: blog/page/2
-        [Route("blog/page/{page:int}")]
+        [Route("page/{page:int}")]
         public async Task<IActionResult> Page(int page)
         {
             ViewBag.Title = "Blog posts ";
@@ -49,7 +49,7 @@ namespace BlogiFire.Controllers
         }
 
         // GET: blog/post/my-post
-        [Route("blog/post/{slug}")]
+        [Route("post/{slug}")]
         public async Task<IActionResult> Single(string slug)
         {
             var posts = await postsDb.Find(p => p.Slug == slug);

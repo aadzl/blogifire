@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>@ViewBag.Title</h2>
 <script type="text/javascript">
@@ -14,7 +14,7 @@
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == 4) {
                 if (xmlhttp.status == 201) {
-                    window.location.href = '/admin';
+                    window.location.href = '../admin';
                 }
             }
         }
@@ -27,7 +27,7 @@
             AuthorEmail: document.getElementById("txtAuthorEmail").value,
             Theme: document.getElementById("txtTheme").value
         };
-        xmlhttp.open("POST", "/blog/create", true);
+        xmlhttp.open("POST", "create", true);
         xmlhttp.setRequestHeader('Content-type', 'application/json');
         xmlhttp.send(JSON.stringify(data));
         return false;

@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 
-namespace BlogiFire.Models
+namespace BlogiFire.Core.Data
 {
     public class PostRepository : IPostRepository
     {
-        BlogContext db;
+        BlogiFireContext db;
         public PostRepository()
         {
-            this.db = new BlogContext();
+            this.db = new BlogiFireContext();
         }
         public async Task<List<Post>> All()
         {
@@ -29,7 +29,7 @@ namespace BlogiFire.Models
             else
             {
                 return await posts.Skip(skip).Take(pageSize).ToListAsync();
-            }          
+            }
         }
         public async Task<Post> GetById(int id)
         {
@@ -37,27 +37,22 @@ namespace BlogiFire.Models
         }
         public async Task Add(Post item)
         {
-            db.Posts.Add(item);
+            await db.Posts.AddAsync(item);
             await db.SaveChangesAsync();
         }
         public async Task Update(Post item)
         {
-            try
-            {
-                var dbPost = db.Posts.SingleOrDefault(i => i.Id == item.Id);
+            //var dbPost = db.Posts.SingleOrDefault(i => i.Id == item.Id);
 
-                dbPost.Published = item.Published;
-                dbPost.Title = item.Title;
-                dbPost.Content = item.Content;
-                dbPost.Saved = DateTime.UtcNow;
+            //dbPost.Published = item.Published;
+            //dbPost.Title = item.Title;
+            //dbPost.Content = item.Content;
+            //dbPost.Saved = DateTime.UtcNow;
 
-                await db.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-                throw;
-            }
+            item.Saved = DateTime.UtcNow;
+
+            await db.Posts.UpdateAsync(item);
+            await db.SaveChangesAsync();
         }
         public async Task Delete(int id)
         {

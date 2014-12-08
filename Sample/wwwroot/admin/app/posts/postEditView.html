@@ -1,21 +1,22 @@
 ﻿<link rel="stylesheet" href="app/editors/summernote/summernote.css">
 <style>
-	.note-toolbar { background-color: #444 !important;}
-	.note-editor .btn { color: white !important; background-color: #444; margin-top: 3px; }
-	.note-editor .btn:hover,  .note-editor .btn:active { background-color: #444 !important;}
+	.note-toolbar { background-color: #333 !important; }
+    .note-toolbar .btn-default { border: 0 !important; }
+	.note-editor .btn { color: white !important; background-color: #333; margin: 13px 0 13px 1px; }
+	.note-editor .btn:hover,  .note-editor .btn:active { background-color: #333 !important;}
 	.note-editor .note-toolbar { padding-bottom: 0 !important; border: 0 none; }
-	.note-editable { line-height: normal !important; text-transform: none; font-size: 1.3em; }
+	.note-editable { line-height: normal !important; text-transform: none; font-size: 1.1em; background-color: #fff !important; }
 	.edit-controls .form-control { background-color: #fff !important; color: #333 !important; }
-	.edit-controls { margin-top: 5px; }
+	.edit-controls { margin-top: 0; background-color: #fff; }
 </style>
+
 <div class="header">       
-	<div class="summernote"></div>
+    <div class="summernote"></div>
 	<div class="edit-controls" style="display: none;">
 		<fieldset>
 			<div class="form-group">
-				<!--<label class="col-lg-2 control-label" for="txtTitle">Title</label>-->
 				<div class="col-lg-12">
-					<input type="text" id="txtTitle" tabindex="1" ng-model="vm.post.Title" placeholder="Post title..." class="form-control"/>
+                    <input type="text" id="txtTitle" tabindex="1" ng-model="vm.postCopy.Title" placeholder="Post title..." class="form-control" />
 				</div>
 
                 <div class="col-lg-12">
@@ -25,32 +26,14 @@
 		</fieldset>
 	</div>
 </div>
-<div class="footer">
+<!--<div class="footer">
 	<div class="pull-left">&copy; <a href="#">BlogiFire</a> 0.1</div>
-</div>
+</div>-->
 <script type="text/javascript" src="app/editors/summernote/summernote.js"></script>
 <script type="text/javascript">
-    var upload = function (file) {
-        $.ajax({
-            url: '/blog/api/upload',
-            type: 'POST',
-            data: file,
-            cache: false,
-            dataType: 'json',
-            processData: false,
-            contentType: "multipart/form-data",
-            success: function (data, textStatus, jqXHR) {
-                toastr.success('Uploaded');
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                toastr.error('Error');
-            }
-        });
-    }
-
 	$(document).ready(function() {
 		$('.summernote').summernote({
-			height: 400,
+		    height: $(document).height() - 220,
 			toolbar: [
 			   ['style', ['style']],
 			   ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -59,13 +42,13 @@
 			   ['insert', ['picture', 'table', 'link']],
 			   ['misc', ['codeview']]
 			],
-			onImageUpload: function(files, editor, $editable) {
+			onImageUpload: function (files, editor, $editable) {
 				if(files.length > 0){
 				    uploadFile(files[0], editor, $editable);
 				}
 			}
 		});
-		var b1 = '<div class="user-section pull-right"><i class="user-avatar fa fa-user"></i><div class="user-section-dropdown"><ul>';
+		var b1 = '<div class="user-section pull-right"><div class="user-section-dropdown"><ul class="nav-custom container">';
 		b1 += '<li><a href="index.html#/profile"><i class="fa fa-user"></i>Profile</a></li>';
 		b1 += '<li><a href="index.html#/settings"><i class="fa fa-cog"></i>Settings</a></li>';
 		b1 += '<li><a href="index.html#/help"><i class="fa fa-question"></i>Help</a></li>';
@@ -77,9 +60,13 @@
 		b2 += '<li><a href="" ng-click="vm.save()"><i class="fa fa-save"></i>Save</a></li>';
 		b2 += '</ul>';
 
-		$('.btn-toolbar').prepend($('<ul class="nav-actions"><li><a href="" ng-click="vm.cancel()"><i class="fa fa-arrow-left"></i>Back</a></li></ul>'));
-		$('.btn-toolbar').append($(b1));
-		$('.btn-toolbar').append($(b2));
+		//$('.btn-toolbar').prepend($('<ul class="nav-custom container"><li><a href="" ng-click="vm.cancel()"><i class="fa fa-arrow-left"></i>Back</a></li></ul>'));
+		//$('.btn-toolbar').append($(b1));
+	    //$('.btn-toolbar').append($(b2));
+
+		$('.btn-toolbar').append($('<div class="note-style btn-group"><button tabindex="-1" title="" class="btn btn-default btn-sm btn-small" type="button" ng-click="vm.cancel()">CANCEL</button></div>'));
+		$('.btn-toolbar').append($('<div class="note-style btn-group"><button tabindex="-1" title="" class="btn btn-default btn-sm btn-small" type="button" ng-click="vm.save()">SAVE</button></div>'));
+
 		$('.edit-controls').show(); // hide/show to prevent flicking in toolbar on load
 		$('.note-editable').focus();
 	});

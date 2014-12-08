@@ -46,9 +46,7 @@ namespace Sample
             // You need to add Microsoft.AspNet.Mvc.WebApiCompatShim package to project.json
             // services.AddWebApiConventions();
 
-            services.AddSingleton<BlogiFire.Models.IPostRepository, BlogiFire.Models.PostRepository>();
-            services.AddSingleton<BlogiFire.Models.IBlogRepository, BlogiFire.Models.BlogRepository>();
-            services.AddSingleton<BlogiFire.Models.ISettingsRepository, BlogiFire.Models.SettingRepository>();
+            BlogiFire.Web.Infrastructure.AddServices(services, Configuration);
         }
 
         // Configure is called after ConfigureServices is called.
@@ -57,7 +55,7 @@ namespace Sample
             // Configure the HTTP request pipeline.
             // Add the console logger.
             loggerfactory.AddConsole();
-
+            
             // Add the following to the request pipeline only in development environment.
             if (string.Equals(env.EnvironmentName, "Development", StringComparison.OrdinalIgnoreCase))
             {
@@ -88,7 +86,7 @@ namespace Sample
 
                 // Uncomment the following line to add a route for porting Web API 2 controllers.
                 // routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");
-            });
+            });            
         }
     }
 }

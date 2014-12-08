@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>BlogiFire Dashboard</title>
+    <link href='http://fonts.googleapis.com/css?family=Open Sans:400,300,700' rel='stylesheet' type='text/css'>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/toastr.min.css" rel="stylesheet" />
@@ -11,9 +12,9 @@
 </head>
 <body class="ltr" ng-app="blogifire">
     <div ui-view></div>
-    <div class="footer">
+    <!--<div class="footer">
         <div class="pull-left">&copy; <a href="#">BlogiFire</a> 0.1</div>
-    </div>
+    </div>-->
     <!-- Library Scripts -->
     <script src="js/angular.js"></script>
     <script src="js/angular-resource.js"></script>
@@ -35,6 +36,9 @@
     <script src="app/posts/postResourceMock.js"></script>
     <script src="app/posts/postListCtrl.js"></script>
     <script src="app/posts/postEditCtrl.js"></script>
+
+    <script src="app/comments/commentsCtrl.js"></script>
+    <script src="app/dashboard/dashboardCtrl.js"></script>
 
     <script src="app/help/helpCtrl.js"></script>
     <script src="app/settings/settingsCtrl.js"></script>

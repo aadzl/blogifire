@@ -21,14 +21,20 @@
             $urlRouterProvider.otherwise("/");
 
             $stateProvider
-            .state("postList", {
+            .state("dashbaord", {
                 url: "/",
+                templateUrl: "app/dashboard/dashboard.html",
+                controller: "dashboardCtrl as vm",
+                authenticate: true
+            })
+            .state("postList", {
+                url: "/posts",
                 templateUrl: "app/posts/postListView.html",
                 controller: "postListCtrl as vm",
                 authenticate: true
             })
  			.state("postEdit", {
- 				url: "/posts/:Id",
+ 			    url: "/posts/:Id",
  				templateUrl: "app/posts/postEditView.html",
  				controller: "postEditCtrl as vm",
  				authenticate: true,
@@ -40,6 +46,12 @@
  				    }
  				}
  			})
+            .state("comments", {
+                url: "/comments",
+                templateUrl: "app/comments/comments.html",
+                controller: "commentsCtrl as vm",
+                authenticate: true
+            })
             .state("settings", {
                 url: "/settings",
                 templateUrl: "app/settings/settings.html",
@@ -66,7 +78,7 @@
             function (event, toState, toParams, fromState, fromParams) {
                 // check authentication and redirect to login if false
                 if (toState.authenticate && !authService.isAuthenticated) {
-                    window.location.href = '/account/login';
+                    window.location.href = webRoot + 'account/login';
                 }
             }
         );

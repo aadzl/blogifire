@@ -7,18 +7,18 @@
 
         vm.post = post;
         vm.postCopy = angular.copy(vm.post);
-        $('.summernote').code(vm.post.Content);
+        $('.summernote').code(vm.postCopy.Content);
 
         this.save = function () {
-            vm.post.Content = $('.summernote').code();
-            vm.post.Saved = new Date();
-            vm.post.Slug = this.convertToSlug(vm.post.Title);
+            vm.postCopy.Content = $('.summernote').code();
+            vm.postCopy.Saved = new Date();
+            vm.postCopy.Slug = this.convertToSlug(vm.postCopy.Title);
 
-            if (!vm.post.BlogId) {
-                vm.post.BlogId = 0;
+            if (!vm.postCopy.BlogId) {
+                vm.postCopy.BlogId = 0;
             }         
             
-            vm.post.$save(function (data) {
+            vm.postCopy.$save(function (data) {
                 toastr.success('saved');
             }, function (data) {
                 toastr.error('failed');
@@ -31,7 +31,7 @@
         }
 
         this.cancel = function () {
-            vm.post = vm.postCopy;
+            //vm.post = vm.postCopy;
             $window.history.back();
         }
 

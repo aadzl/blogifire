@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using BlogiFire.Models;
+using BlogiFire.Core.Data;
 
 namespace BlogiFire.Api
 {
-    [Route("blog/api/[controller]")]
     [Authorize]
+    [Route("blog/api/[controller]")]
     public class PostsController : Controller
     {
         #region Constructor and private members
@@ -26,7 +26,13 @@ namespace BlogiFire.Api
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            return Json(await postsDb.All());
+            var blogs = await blogsDb.Find(b => b.AuthorId == User.Identity.Name);
+            if (blogs == null || blogs.Count == 0)
+                return null;
+
+            var blogId = blogs.FirstOrDefault().Id;
+            var posts = await postsDb.All();
+            return Json(posts.Where(p => p.BlogId == blogId));
         }
 
         // GET: blog/api/posts/2
@@ -48,7 +54,7 @@ namespace BlogiFire.Api
 
             try
             {
-                item.Saved = DateTime.UtcNow;
+                //item.Saved = DateTime.UtcNow;
 
                 if (item.Id > 0)
                 {
@@ -74,8 +80,6 @@ namespace BlogiFire.Api
                 System.Diagnostics.Debug.WriteLine(ex.Message);
                 throw;
             }
-
-
         }
 
         // DELETE: blog/api/posts/2

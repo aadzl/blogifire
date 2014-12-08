@@ -46,16 +46,6 @@ namespace Sample.Migrations
                         Title = c.String()
                     })
                 .PrimaryKey("PK_bf_posts", t => t.Id);
-            
-            migrationBuilder.CreateTable("bf_settings",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        BlogId = c.Int(nullable: false),
-                        SettingKey = c.String(),
-                        SettingValue = c.String()
-                    })
-                .PrimaryKey("PK_bf_settings", t => t.Id);
         }
         
         public override void Down(MigrationBuilder migrationBuilder)
@@ -63,8 +53,6 @@ namespace Sample.Migrations
             migrationBuilder.DropTable("bf_blogs");
             
             migrationBuilder.DropTable("bf_posts");
-            
-            migrationBuilder.DropTable("bf_settings");
         }
     }
 }

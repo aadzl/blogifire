@@ -1,4 +1,4 @@
-using BlogiFire.Models;
+using BlogiFire.Web;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Migrations.Infrastructure;
@@ -6,32 +6,16 @@ using System;
 
 namespace Sample.Migrations
 {
-    [ContextType(typeof(BlogContext))]
-    public partial class bf01 : IMigrationMetadata
+    [ContextType(typeof(BlogiFireContext))]
+    public class BlogiFireContextModelSnapshot : ModelSnapshot
     {
-        string IMigrationMetadata.MigrationId
-        {
-            get
-            {
-                return "201411300546380_bf01";
-            }
-        }
-        
-        string IMigrationMetadata.ProductVersion
-        {
-            get
-            {
-                return "7.0.0-beta1-11518";
-            }
-        }
-        
-        IModel IMigrationMetadata.TargetModel
+        public override IModel Model
         {
             get
             {
                 var builder = new BasicModelBuilder();
                 
-                builder.Entity("BlogiFire.Models.Blog", b =>
+                builder.Entity("BlogiFire.Core.Data.Blog", b =>
                     {
                         b.Property<string>("AuthorEmail");
                         b.Property<string>("AuthorId");
@@ -52,7 +36,7 @@ namespace Sample.Migrations
                         b.ForRelational().Table("bf_blogs");
                     });
                 
-                builder.Entity("BlogiFire.Models.Post", b =>
+                builder.Entity("BlogiFire.Core.Data.Post", b =>
                     {
                         b.Property<string>("AuthorName");
                         b.Property<int>("BlogId");
@@ -69,17 +53,6 @@ namespace Sample.Migrations
                         b.Property<string>("Title");
                         b.Key("Id");
                         b.ForRelational().Table("bf_posts");
-                    });
-                
-                builder.Entity("BlogiFire.Models.Setting", b =>
-                    {
-                        b.Property<int>("BlogId");
-                        b.Property<int>("Id")
-                            .GenerateValuesOnAdd();
-                        b.Property<string>("SettingKey");
-                        b.Property<string>("SettingValue");
-                        b.Key("Id");
-                        b.ForRelational().Table("bf_settings");
                     });
                 
                 return builder.Model;

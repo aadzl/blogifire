@@ -2,10 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using BlogiFire.Models;
+using BlogiFire.Core.Data;
 
 namespace BlogiFire.Controllers
 {
+    [Route("blog")]
     public class BlogsController : Controller
     {
         IBlogRepository db;
@@ -14,7 +15,8 @@ namespace BlogiFire.Controllers
             this.db = db;
         }
 
-        [Route("blog/new")]
+        // GET: blog/new
+        [Route("new")]
         public async Task<IActionResult> Index()
         {
             ViewBag.Title = "New blog";
@@ -38,7 +40,7 @@ namespace BlogiFire.Controllers
         }
 
         // POST: blog/create
-        [Route("blog/create")]
+        [Route("create")]
         public async Task<ActionResult> Post([FromBody]Blog item)
         {
             if (item.Id > 0)
