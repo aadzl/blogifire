@@ -12,7 +12,14 @@ namespace BlogiFire.Core.Data
 
         protected override void OnConfiguring(DbContextOptions builder)
         {
-            builder.UseSqlServer(AppSettings.ConnectionString);
+            if (AppSettings.UseInMemoryDb)
+            {
+                builder.UseInMemoryStore();
+            }
+            else
+            {
+                builder.UseSqlServer(AppSettings.ConnectionString);
+            }
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {

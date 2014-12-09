@@ -4,6 +4,7 @@
         "EntityFramework.SqlServer": "7.0.0-beta1-*",
         "System.Data.SqlClient": "1.0.0-beta1-*",
         "Microsoft.Framework.OptionsModel": "1.0.0-beta1-*",
+        "EntityFramework.InMemory": "7.0.0-beta1-*",
         "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-beta1-*"
     },
     "frameworks" : {

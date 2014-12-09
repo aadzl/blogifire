@@ -15,12 +15,15 @@ namespace BlogiFire.Core.Data
         }
         public async Task<List<Post>> All()
         {
-            return await db.Posts.OrderByDescending(p => p.Published).ToListAsync();
+            var posts = db.Posts.AsNoTracking().AsQueryable();
+            return await posts.OrderByDescending(p => p.Published).ToListAsync();
         }
         public async Task<List<Post>> Find(Expression<Func<Post, bool>> predicate, int page = 1, int pageSize = 10)
         {
             var skip = page * pageSize - pageSize;
-            var posts = db.Posts.Where(predicate).OrderByDescending(p => p.Published);
+            var posts = db.Posts.AsNoTracking().AsQueryable();
+
+            posts = posts.Where(predicate).OrderByDescending(p => p.Published);
 
             if (skip == 0)
             {
@@ -33,7 +36,7 @@ namespace BlogiFire.Core.Data
         }
         public async Task<Post> GetById(int id)
         {
-            return await db.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            return await db.Posts.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
         public async Task Add(Post item)
         {
@@ -42,15 +45,7 @@ namespace BlogiFire.Core.Data
         }
         public async Task Update(Post item)
         {
-            //var dbPost = db.Posts.SingleOrDefault(i => i.Id == item.Id);
-
-            //dbPost.Published = item.Published;
-            //dbPost.Title = item.Title;
-            //dbPost.Content = item.Content;
-            //dbPost.Saved = DateTime.UtcNow;
-
             item.Saved = DateTime.UtcNow;
-
             await db.Posts.UpdateAsync(item);
             await db.SaveChangesAsync();
         }

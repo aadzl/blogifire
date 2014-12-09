@@ -30,8 +30,11 @@ namespace BlogiFire.Core.Data
             db.Blogs.Add(item);
             await db.SaveChangesAsync();
 
-            var initializer = new DataInitializer();
-            await initializer.SeedPosts(item);
+            if (AppSettings.InitializeData)
+            {
+                var initializer = new DataInitializer();
+                await initializer.SeedPosts(item);
+            }
         }
         public async Task Update(Blog item)
         {
