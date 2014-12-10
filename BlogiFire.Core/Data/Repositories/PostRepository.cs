@@ -40,20 +40,36 @@ namespace BlogiFire.Core.Data
         }
         public async Task Add(Post item)
         {
-            await db.Posts.AddAsync(item);
-            await db.SaveChangesAsync();
+            using (var context = new BlogiFireContext())
+            {
+                await context.Posts.AddAsync(item);
+                await context.SaveChangesAsync();
+            }
         }
         public async Task Update(Post item)
         {
-            item.Saved = DateTime.UtcNow;
-            await db.Posts.UpdateAsync(item);
-            await db.SaveChangesAsync();
+            using (var context = new BlogiFireContext())
+            {
+                var itemToUpdate = await context.Posts.FirstOrDefaultAsync(i => i.Id == item.Id);
+
+                itemToUpdate.Saved = DateTime.UtcNow;
+                itemToUpdate.Title = item.Title;
+                itemToUpdate.Content = item.Content;
+                itemToUpdate.Tags = item.Tags;
+                itemToUpdate.Published = item.Published;        
+
+                await context.Posts.UpdateAsync(itemToUpdate);
+                await context.SaveChangesAsync();
+            }
         }
         public async Task Delete(int id)
         {
-            var item = await db.Posts.FirstOrDefaultAsync(i => i.Id == id);
-            db.Posts.Remove(item);
-            await db.SaveChangesAsync();
+            using (var context = new BlogiFireContext())
+            {
+                var item = await context.Posts.FirstOrDefaultAsync(i => i.Id == id);
+                context.Posts.Remove(item);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

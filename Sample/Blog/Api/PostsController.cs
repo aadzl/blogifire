@@ -32,7 +32,7 @@ namespace BlogiFire.Api
 
             var blogId = blogs.FirstOrDefault().Id;
             var posts = await postsDb.All();
-            return Json(posts.Where(p => p.BlogId == blogId));
+            return Json(posts.Where(p => p.BlogId == blogId).ToList());
         }
 
         // GET: blog/api/posts/2

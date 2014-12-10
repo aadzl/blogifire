@@ -32,7 +32,7 @@ namespace BlogiFire.Controllers
             ViewBag.NewerPage = 0;
             await GetOlderPage(page);
 
-            return View("~/Blog/Views/Posts/Index.cshtml", posts);
+            return View("~/Blog/Views/Posts/Index.cshtml", posts.ToList());
         }
 
         // GET: blog/page/2
@@ -45,7 +45,7 @@ namespace BlogiFire.Controllers
             ViewBag.NewerPage = page - 1;
             await GetOlderPage(page);
 
-            return View("~/Blog/Views/Posts/Index.cshtml", posts);
+            return View("~/Blog/Views/Posts/Index.cshtml", posts.ToList());
         }
 
         // GET: blog/post/my-post
