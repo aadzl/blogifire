@@ -4,13 +4,14 @@
         <li class="item"><a href="#/posts">Posts</a></li>
         <li class="item active"><a href="#/comments">Comments</a></li>
         <li class="item"><a href="#/settings">Settings</a></li>
-        <li class="item item-right"><a href="/blog">Sign Out</a></li>
+        <li class="item item-right item-signout"><a href="/">SignOut</a></li>
+        <li class="item item-right"><a href="/blog">Blog</a></li>
     </ul>
 </div>
 <div class="actions container">
-    <button class="btn btn-danger">Delete</button>
-    <button class="btn btn-success">Approve</button>
-    <button class="btn btn-warning">Archive</button>
+    <button class="btn btn-danger"> <i class="fa fa-times"></i> Delete</button>
+    <button class="btn btn-success"><i class="fa fa-check"></i> Publish</button>
+    <button class="btn btn-warning"><i class="fa fa-minus"></i> Archive</button>
 </div>
 <div class="content container">
     <table class="table table-custom">
@@ -34,6 +35,9 @@
             <td>8</td>
             <td>6 DEC 2014</td>
             <td>0</td>
+        </tr>
+        <tr>
+            <td colspan="5" class="btn-showmore">Show More <i class="fa fa-spin fa-spinner" style="display:none;"></i></td>
         </tr>
     </table>
 </div>

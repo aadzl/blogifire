@@ -4,14 +4,16 @@
         <li class="item active"><a href="#">Posts</a></li>
         <li class="item"><a href="#/comments">Comments</a></li>
         <li class="item"><a href="#/settings">Settings</a></li>
-        <li class="item item-right"><a href="/blog">Sign Out</a></li>
+        <li class="item item-right item-signout"><a href="/">SignOut</a></li>
+        <li class="item item-right"><a href="/blog">Blog</a></li>
     </ul>
 </div>
 <div class="actions container">
-    <button class="btn btn-success active">New Post</button>
-    <button class="btn btn-danger">Delete</button>
-    <button class="btn btn-success">Publish</button>
-    <button class="btn btn-warning">Archive</button>
+    <button class="btn btn-success"><i class="fa fa-plus"></i> New Post</button>
+    <span class="seperator"></span>
+    <button class="btn btn-danger"> <i class="fa fa-times"></i> Delete</button>
+    <button class="btn btn-success"><i class="fa fa-check"></i> Publish</button>
+    <button class="btn btn-warning"><i class="fa fa-minus"></i> Archive</button>
 </div>
 <div class="content container">
     <table class="table table-custom">
@@ -29,9 +31,12 @@
             <td>{{post.Saved  | date:'d MMM yyyy'}}</td>
             <td><i ng-class="post.Visible ? 'fa fa-toggle-on' : 'fa fa-toggle-off'"></i></td>
         </tr>
+        <tr>
+            <td colspan="5" class="btn-showmore">Show More <i class="fa fa-spin fa-spinner" style="display:none;"></i></td>
+        </tr>
     </table>
-    <ul class="pager">
+    <!--<ul class="pager">
         <li ng-if="vm.pager.currentPage > 0" class="next"><a href="" ng-click="vm.prevPage()">Newer &rarr;</a></li>
         <li ng-if="vm.pager.currentPage + 1 < vm.pager.pagedItems.length" class="previous"><a href="" ng-click="vm.nextPage()">&larr; Older</a></li>
-    </ul>
+    </ul>-->
 </div>
