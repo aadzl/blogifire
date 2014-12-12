@@ -78,7 +78,7 @@
             function (event, toState, toParams, fromState, fromParams) {
                 // check authentication and redirect to login if false
                 if (toState.authenticate && !authService.isAuthenticated) {
-                    window.location.href = webRoot + 'account/login';
+                    window.location.href = AppRoot + 'account/login';
                 }
             }
         );

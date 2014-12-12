@@ -1,11 +1,4 @@
-﻿/*
-    if app runs in subfolder (my.domain.com/myapp)
-    change from "/" to "/myapp/"
-*/
-var webRoot = "/";
-var webApiRoot = webRoot + "blog/api/";
-
-function initPager(p) {
+﻿function initPager(p) {
     p.pagedItems = [];
     p.currentPage = 0;
     if (p.itemsPerPage === undefined) {
@@ -37,7 +30,7 @@ function uploadFile(file, editor, welEditable) {
     $.ajax({
         data: file,
         type: "POST",
-        url: webApiRoot + "upload/" + file.name,
+        url: ApiRoot + "upload/" + file.name,
         cache: false,
         contentType: "multipart/form-data",
         processData: false,
