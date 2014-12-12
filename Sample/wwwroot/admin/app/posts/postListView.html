@@ -1,7 +1,7 @@
 <div class="header">
     <ul class="nav-custom container">
         <li class="item"><a href="#/">Dashboard</a></li>
-        <li class="item active"><a href="#">Posts</a></li>
+        <li class="item active"><a href="#/posts">Posts</a></li>
         <li class="item"><a href="#/comments">Comments</a></li>
         <li class="item"><a href="#/settings">Settings</a></li>
         <li class="item item-right item-signout"><a href="/">SignOut</a></li>
@@ -24,7 +24,8 @@
             <th class="table-date">Publish Date</th>
             <th class="table-status">Status</th>
         </tr>
-        <tr ng-repeat="post in vm.pager.pagedItems[vm.pager.currentPage]">
+        <!--<tr ng-repeat="post in vm.pager.pagedItems[vm.pager.currentPage]">-->
+        <tr ng-repeat="post in vm.pager.itemsToShow">
             <td class="table-checkbox"><input type="checkbox" /></td>
             <td class="table-title"><a href="#/posts/{{post.Id}}">{{post.Title}}</a></td>
             <td>{{post.Comments}}</td>
@@ -32,7 +33,7 @@
             <td><i ng-class="post.Visible ? 'fa fa-toggle-on' : 'fa fa-toggle-off'"></i></td>
         </tr>
         <tr>
-            <td colspan="5" class="btn-showmore">Show More <i class="fa fa-spin fa-spinner" style="display:none;"></i></td>
+            <td colspan="5" ng-if="vm.pager.currentPage + 1 < vm.pager.pagedItems.length" ng-click="vm.showMore()" class="btn-showmore">Show More <i class="fa fa-spin fa-spinner" style="display:none;"></i></td>
         </tr>
     </table>
     <!--<ul class="pager">

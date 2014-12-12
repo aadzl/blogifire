@@ -21,5 +21,10 @@
             vm.pager.nextPage();
             postResource.query();
         }
+        vm.showMore = function () {
+            vm.pager.nextPage();
+            vm.pager.showMoreItems();
+            postResource.query();
+        }
     }
 }());

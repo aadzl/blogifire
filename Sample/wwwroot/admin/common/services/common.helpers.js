@@ -1,5 +1,6 @@
 ﻿function initPager(p) {
     p.pagedItems = [];
+    p.itemsToShow = [];
     p.currentPage = 0;
     if (p.itemsPerPage === undefined) {
         p.itemsPerPage = 10;
@@ -14,6 +15,14 @@
             p.currentPage++;
         }
     };
+    p.showMoreItems = function () {
+        p.itemsToShow = [];
+        for (var i = 0; i <= p.currentPage; i++) {
+            for (var j = 0; j < p.pagedItems[i].length; j++) {
+                p.itemsToShow.push(p.pagedItems[i][j]);
+            }
+        }
+    }
     init = function () {
         for (var i = 0; i < p.items.length; i++) {
             if (i % p.itemsPerPage === 0) {
@@ -22,6 +31,7 @@
                 p.pagedItems[Math.floor(i / p.itemsPerPage)].push(p.items[i]);
             }
         }
+        p.itemsToShow.push.apply(p.itemsToShow, p.pagedItems[0]);
     };
     init();
 }
