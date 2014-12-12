@@ -33,7 +33,7 @@ namespace BlogiFire.Core.Data
             if (AppSettings.InitializeData)
             {
                 var initializer = new DataInitializer();
-                await initializer.SeedPosts(item);
+                initializer.SeedPosts(item);
             }
         }
         public async Task Update(Blog item)

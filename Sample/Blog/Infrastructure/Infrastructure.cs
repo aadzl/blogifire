@@ -31,6 +31,9 @@ namespace BlogiFire.Web
                 db.Database.AsRelational().ApplyMigrations();
                 db.Database.EnsureCreatedAsync();
             }
+
+            //var initializer = new DataInitializer();
+            //initializer.SeedPosts2();
         }
     }
 }
