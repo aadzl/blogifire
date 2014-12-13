@@ -34,6 +34,13 @@
                 data: item
             });
         },
+        processChecked: function (url, items) {
+            return $http({
+                url: url,
+                method: 'PUT',
+                data: items
+            });
+        },
         uploadFile: function (url, file) {
             return $http({
                 url: url,

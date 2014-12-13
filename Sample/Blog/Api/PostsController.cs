@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using BlogiFire.Core.Data;
+using System.Collections.Generic;
 
 namespace BlogiFire.Api
 {
@@ -19,9 +20,9 @@ namespace BlogiFire.Api
             this.postsDb = postsDb;
             this.blogsDb = blogsDb;
         }
-        
+
         #endregion
-        
+
         // GET: blog/api/posts
         [HttpGet]
         public async Task<ActionResult> Get()
@@ -82,12 +83,28 @@ namespace BlogiFire.Api
             }
         }
 
-        // DELETE: blog/api/posts/2
-        [HttpDelete("{id}")]
-        public async Task<string> Delete(int id)
+        // PUT: blog/api/posts/delete
+        [HttpPut("{operation}")]
+        public async Task<string> Process([FromBody]List<Post> items, string operation)
         {
-            await postsDb.Delete(id);
-            return "Deleted";
+            foreach (var item in items)
+            {
+                if(operation == "delete")
+                {
+                    await postsDb.Delete(item.Id);
+                }
+                if (operation == "publish")
+                {
+                    item.Published = DateTime.UtcNow;
+                    await postsDb.Update(item);
+                }
+                if (operation == "archive")
+                {
+                    item.Published = DateTime.MinValue;
+                    await postsDb.Update(item);
+                }
+            }
+            return "Processed";
         }
     }
 }
