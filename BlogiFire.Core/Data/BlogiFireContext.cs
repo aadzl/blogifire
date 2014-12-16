@@ -9,6 +9,7 @@ namespace BlogiFire.Core.Data
 
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnConfiguring(DbContextOptions builder)
         {
@@ -25,6 +26,7 @@ namespace BlogiFire.Core.Data
         {
             builder.Entity<Blog>().ForRelational().Table("bf_blogs");
             builder.Entity<Post>().ForRelational().Table("bf_posts");
+            builder.Entity<Comment>().ForRelational().Table("bf_comments");
 
             base.OnModelCreating(builder);
         }

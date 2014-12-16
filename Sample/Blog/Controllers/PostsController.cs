@@ -3,7 +3,7 @@ using Microsoft.AspNet.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlogiFire.Controllers
+namespace BlogiFire.Web
 {
     [Route("blog")]
     public class PostsController : Controller
@@ -12,11 +12,13 @@ namespace BlogiFire.Controllers
 
         IPostRepository postsDb;
         IBlogRepository blogsDb;
+        ICommentRepository commentsDb;
         int pageSize;
-        public PostsController(IPostRepository postsDb, IBlogRepository blogsDb)
+        public PostsController(IPostRepository postsDb, IBlogRepository blogsDb, ICommentRepository commentsDb)
         {
             this.postsDb = postsDb;
             this.blogsDb = blogsDb;
+            this.commentsDb = commentsDb;
             pageSize = 10;
         }
 
@@ -52,11 +54,13 @@ namespace BlogiFire.Controllers
         [Route("post/{slug}")]
         public async Task<IActionResult> Single(string slug)
         {
+            var vm = new PostViewModel();
             var posts = await postsDb.Find(p => p.Slug == slug);
-            var post = posts.FirstOrDefault();
-            ViewBag.Title = post.Title;
+            vm.Post = posts.FirstOrDefault();
+            vm.Comments = await commentsDb.Find(c => c.PostId == vm.Post.Id);
+            ViewBag.Title = vm.Post.Title;
 
-            return View("~/Blog/Views/Posts/Post.cshtml", post);
+            return View("~/Blog/Views/Posts/Post.cshtml", vm);
         }
 
         // get page number by quering if older records exist

@@ -13,7 +13,7 @@ namespace Sample.Migrations
         {
             get
             {
-                return "201412072303439_bf01";
+                return "201412131823444_bf01";
             }
         }
         
@@ -50,6 +50,24 @@ namespace Sample.Migrations
                         b.Property<string>("Title");
                         b.Key("Id");
                         b.ForRelational().Table("bf_blogs");
+                    });
+                
+                builder.Entity("BlogiFire.Core.Data.Comment", b =>
+                    {
+                        b.Property<string>("Author");
+                        b.Property<string>("Content");
+                        b.Property<string>("Email");
+                        b.Property<int>("Id")
+                            .GenerateValuesOnAdd();
+                        b.Property<string>("Ip");
+                        b.Property<bool>("IsApproved");
+                        b.Property<int>("ParentId");
+                        b.Property<int>("PostId");
+                        b.Property<DateTime>("Published");
+                        b.Property<string>("UserAgent");
+                        b.Property<string>("Website");
+                        b.Key("Id");
+                        b.ForRelational().Table("bf_comments");
                     });
                 
                 builder.Entity("BlogiFire.Core.Data.Post", b =>

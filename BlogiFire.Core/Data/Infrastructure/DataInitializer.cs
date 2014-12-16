@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -6,23 +7,27 @@ namespace BlogiFire.Core.Data
 {
     public class DataInitializer
     {
-        //async Task CreateBlogs()
-        //{
-        //    for (int i = 1; i <= 3; i++)
-        //    {
-        //        var blog = new Blog();
-        //        blog.AuthorId = string.Format("user{0}", i);
-        //        blog.AuthorName = string.Format("User {0}", i);
-        //        blog.AuthorEmail = blog.AuthorId + "@us.com";
-        //        blog.Title = "Blog for " + blog.AuthorId;
-        //        blog.Description = "This is a blog by " + blog.AuthorName;
+        public void SeedBlogs()
+        {
+            var bob = new Blog { Title = "Bog's blog", Description = "This is bob's blog", AuthorId = "Bob", AuthorEmail = "bob@us", AuthorName = "Mr. Bob" };
+            var sam = new Blog { Title = "Sam's blog", Description = "This is sam's blog", AuthorId = "Sam", AuthorEmail = "sam@us", AuthorName = "Mr. Sam" };
 
-        //        db.Blogs.Add(blog);
-        //        await db.SaveChangesAsync();
-
-        //        await CreatePosts(blog);
-        //    }
-        //}
+            using (var db = new BlogiFireContext())
+            {
+                if(db.Blogs.Where(b => b.AuthorId == "Bob").FirstOrDefault() == null)
+                {
+                    var b1 = db.Blogs.Add(bob);
+                    db.SaveChanges();
+                    SeedPosts(b1);
+                }
+                if (db.Blogs.Where(b => b.AuthorId == "Sam").FirstOrDefault() == null)
+                {
+                    var b2 = db.Blogs.Add(sam);
+                    db.SaveChanges();
+                    SeedPosts(b2);
+                }
+            }
+        }
 
         Random _rnd = new Random();
 
@@ -30,7 +35,7 @@ namespace BlogiFire.Core.Data
         {
             using (var db = new BlogiFireContext())
             {
-                for (int i = 1; i <= 15; i++)
+                for (int i = 1; i <= 25; i++)
                 {
                     var post = new Post();
                     var blogContent = GetContent();

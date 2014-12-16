@@ -9,35 +9,28 @@
     </ul>
 </div>
 <div class="actions container">
-    <button class="btn btn-danger"> <i class="fa fa-times"></i> Delete</button>
-    <button class="btn btn-success"><i class="fa fa-check"></i> Publish</button>
-    <button class="btn btn-warning"><i class="fa fa-minus"></i> Archive</button>
+    <button class="btn btn-danger" ng-disabled="vm.isChecked() === false"> <i class="fa fa-times"></i> Delete</button>
+    <button class="btn btn-success" ng-disabled="vm.isChecked() === false"><i class="fa fa-check"></i> Approve</button>
+    <button class="btn btn-warning" ng-disabled="vm.isChecked() === false"><i class="fa fa-minus"></i> Archive</button>
 </div>
 <div class="content container">
     <table class="table table-custom">
         <tr>
-            <th class="table-checkbox"><input type="checkbox" /></th>
-            <th class="table-title">Post Title</th>
-            <th class="table-comments">Comments</th>
+            <th class="table-checkbox"><input type="checkbox" id="chkAll" data-ng-click="vm.checkAll()" /></th>
+            <th class="table-title">Comment</th>
+            <th class="table-comments">Author</th>
             <th class="table-date">Publish Date</th>
             <th class="table-status">Status</th>
         </tr>
-        <tr>
-            <td class="table-checkbox"><input type="checkbox" /></td>
-            <td class="table-title">MiniBlog theme for BlogEngine.NET</td>
-            <td>8</td>
-            <td>6 DEC 2014</td>
-            <td>0</td>
+        <tr ng-repeat="item in vm.pager.itemsToShow">
+            <td class="table-checkbox"><input type="checkbox" ng-model="item.IsSelected" /></td>
+            <td class="table-title">{{item.Content}}</td>
+            <td>{{item.Author}}</td>
+            <td>{{item.Published  | date:'d MMM yyyy'}}</td>
+            <td><i ng-class="item.IsApproved ? 'fa fa-toggle-on' : 'fa fa-toggle-off'"></i></td>
         </tr>
         <tr>
-            <td class="table-checkbox"><input type="checkbox" /></td>
-            <td class="table-title">MiniBlog theme for BlogEngine.NET</td>
-            <td>8</td>
-            <td>6 DEC 2014</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td colspan="5" class="btn-showmore">Show More <i class="fa fa-spin fa-spinner" style="display:none;"></i></td>
+            <td colspan="5" ng-if="vm.pager.currentPage + 1 < vm.pager.pagedItems.length" ng-click="vm.showMore()" class="btn-showmore">Show More <i class="fa fa-spin fa-spinner" style="display:none;"></i></td>
         </tr>
     </table>
 </div>

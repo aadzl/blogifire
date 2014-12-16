@@ -78,3 +78,4 @@
 /// <reference path="admin/app/comments/commentsResource.js" />
 /// <reference path="admin/app/dashboard/dashboardCtrl.js" />
 /// <reference path="admin/app/dashboard/dashboardResource.js" />
+/// <reference path="admin/js/blogifire.js" />

@@ -12,6 +12,7 @@ namespace BlogiFire.Web
         {
             services.AddSingleton<IBlogRepository, BlogRepository>();
             services.AddSingleton<IPostRepository, PostRepository>();
+            services.AddSingleton<ICommentRepository, CommentRepository>();
 
             try
             {
@@ -23,7 +24,7 @@ namespace BlogiFire.Web
                 AppSettings.ConnectionString = "Server=.\\SQLEXPRESS;Database=BlogiFire;Trusted_Connection=True;MultipleActiveResultSets=true";
             }
 
-            // if true, for every created blog seed posts
+            // true to seed test data
             AppSettings.InitializeData = true;
 
             using (var db = new BlogiFireContext())
@@ -32,8 +33,11 @@ namespace BlogiFire.Web
                 db.Database.EnsureCreatedAsync();
             }
 
-            //var initializer = new DataInitializer();
-            //initializer.SeedPosts2();
+            if (AppSettings.InitializeData)
+            {
+                var initializer = new DataInitializer();
+                initializer.SeedBlogs();
+            }
         }
     }
 }

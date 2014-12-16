@@ -29,6 +29,23 @@ namespace Sample.Migrations
                     })
                 .PrimaryKey("PK_bf_blogs", t => t.Id);
             
+            migrationBuilder.CreateTable("bf_comments",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Author = c.String(),
+                        Content = c.String(),
+                        Email = c.String(),
+                        Ip = c.String(),
+                        IsApproved = c.Boolean(nullable: false),
+                        ParentId = c.Int(nullable: false),
+                        PostId = c.Int(nullable: false),
+                        Published = c.DateTime(nullable: false),
+                        UserAgent = c.String(),
+                        Website = c.String()
+                    })
+                .PrimaryKey("PK_bf_comments", t => t.Id);
+            
             migrationBuilder.CreateTable("bf_posts",
                 c => new
                     {
@@ -51,6 +68,8 @@ namespace Sample.Migrations
         public override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable("bf_blogs");
+            
+            migrationBuilder.DropTable("bf_comments");
             
             migrationBuilder.DropTable("bf_posts");
         }

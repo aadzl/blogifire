@@ -38,6 +38,14 @@ namespace BlogiFire.Core.Data
         {
             return await db.Posts.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
+        public async Task<List<Post>> GetBlogPosts(string author)
+        {
+            using (var context = new BlogiFireContext())
+            {
+                var blogId = context.Blogs.Where(b => b.AuthorId == author).FirstOrDefault().Id;
+                return await context.Posts.Where(p => p.BlogId == blogId).ToListAsync();
+            }
+        }
         public async Task Add(Post item)
         {
             using (var context = new BlogiFireContext())
