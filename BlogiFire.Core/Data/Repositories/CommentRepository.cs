@@ -34,6 +34,14 @@ namespace BlogiFire.Core.Data
                 return await comments.Skip(skip).Take(pageSize).ToListAsync();
             }
         }
+        public async Task<List<Comment>> GetPostComments(string slug)
+        {
+            using (var context = new BlogiFireContext())
+            {
+                var postId = context.Posts.Where(p => p.Slug == slug).FirstOrDefault().Id;
+                return await context.Comments.Where(c => c.PostId == postId).ToListAsync();
+            }
+        }
         public async Task<Comment> GetById(int id)
         {
             return await db.Comments.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
@@ -45,10 +53,12 @@ namespace BlogiFire.Core.Data
                 await context.Comments.AddAsync(item);
 
                 // update comment count
-                var post = context.Posts.Where(p => p.Id == item.PostId).FirstOrDefault();
-                post.Comments++;
-
-                await context.Posts.UpdateAsync(post);
+                if(item.PostId > 0)
+                {
+                    var post = context.Posts.Where(p => p.Id == item.PostId).FirstOrDefault();
+                    post.Comments++;
+                    await context.Posts.UpdateAsync(post);
+                }           
                 await context.SaveChangesAsync();
             }
         }
@@ -63,7 +73,8 @@ namespace BlogiFire.Core.Data
                 itemToUpdate.Ip = item.Ip;
                 itemToUpdate.Website = item.Website;
                 itemToUpdate.UserAgent = item.UserAgent;
-                itemToUpdate.Published = item.Published;        
+                itemToUpdate.Published = item.Published;
+                itemToUpdate.IsApproved = item.IsApproved;       
 
                 await context.Comments.UpdateAsync(itemToUpdate);
                 await context.SaveChangesAsync();
@@ -75,6 +86,14 @@ namespace BlogiFire.Core.Data
             {
                 var item = await context.Comments.FirstOrDefaultAsync(i => i.Id == id);
                 context.Comments.Remove(item);
+
+                // update comment count
+                if (item.PostId > 0)
+                {
+                    var post = context.Posts.Where(p => p.Id == item.PostId).FirstOrDefault();
+                    post.Comments--;
+                    await context.Posts.UpdateAsync(post);
+                }
                 await context.SaveChangesAsync();
             }
         }

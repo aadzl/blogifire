@@ -1,48 +1,52 @@
 ﻿using BlogiFire.Core.Data;
 using Microsoft.AspNet.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlogiFire.Api
 {
     [Authorize]
-    [Route("blog/api")]
+    [Route("blog/api/comments")]
     public class CommentsController : Controller
     {
-        ICommentRepository commentsDb;
-        IPostRepository postsDb;
+        #region constructor
+
+        ICommentRepository _commentsDb;
+        IPostRepository _postsDb;
 
         public CommentsController(ICommentRepository commentsDb, IPostRepository postsDb)
         {
-            this.commentsDb = commentsDb;
-            this.postsDb = postsDb;
+            _commentsDb = commentsDb;
+            _postsDb = postsDb;
         }
 
-        [Route("comments")]
+        #endregion
+
+        [HttpGet]
         public async Task<ActionResult> Get()
         {
             var comments = new List<Comment>();
-            var posts = await postsDb.GetBlogPosts(User.Identity.Name);
+            var posts = await _postsDb.GetBlogPosts(User.Identity.Name);
 
             foreach (var post in posts)
             {
-                var postComments = await commentsDb.Find(c => c.PostId == post.Id);
+                var postComments = await _commentsDb.Find(c => c.PostId == post.Id);
                 comments.AddRange(postComments);
-            }
-                
+            }              
             return Json(comments);
         }
 
-        [Route("comments/{id:int}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult> Get(int id)
         {
-            return Json(await commentsDb.GetById(id));
+            return Json(await _commentsDb.GetById(id));
         }
 
         [Route("comments/post/{id:int}")]
         public async Task<ActionResult> GetByPost(int id)
         {
-            var comments = await commentsDb.Find(c => c.PostId == id);
+            var comments = await _commentsDb.Find(c => c.PostId == id);
             return Json(comments);
         }
 
@@ -57,21 +61,40 @@ namespace BlogiFire.Api
 
             if (item.Id > 0)
             {
-                await commentsDb.Update(item);
+                await _commentsDb.Update(item);
             }
             else
             {
-                await commentsDb.Add(item);
+                await _commentsDb.Add(item);
                 Context.Response.StatusCode = 201;
             }
             return new ObjectResult(item);
         }
-        
-        [Route("comments/remove/{id:int}")]
-        public async Task<string> Delete(int id)
+
+        // PUT: blog/api/comments/delete
+        [HttpPut("{operation}")]
+        public async Task<string> Process([FromBody]List<Comment> items, string operation)
         {
-            await commentsDb.Delete(id);
-            return "Deleted";
+            foreach (var item in items)
+            {
+                if (operation == "delete")
+                {
+                    await _commentsDb.Delete(item.Id);
+                }
+                if (operation == "approve")
+                {
+                    item.IsApproved = true;
+                    item.Published = DateTime.UtcNow;
+                    await _commentsDb.Update(item);
+                }
+                if (operation == "archive")
+                {
+                    item.IsApproved = false;
+                    item.Published = DateTime.MinValue;
+                    await _commentsDb.Update(item);
+                }
+            }
+            return "Processed";
         }
     }
 }

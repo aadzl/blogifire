@@ -8,7 +8,53 @@
         <li class="item item-right"><a href="/blog">Blog</a></li>
     </ul>
 </div>
-<div class="content container">
-    <h2>{{vm.Title}}</h2>
-    <p>This is a dashbaord page</p>
+<script>
+    var dt = new Date();
+    var dateoptions = { weekday: "long", year: "numeric", month: "short", day: "numeric" };
+    var timeoptions = { hour: "2-digit", minute: "2-digit" };
+    var locDate = document.getElementById("locDate");
+    var locTime = document.getElementById("locTime");
+    locDate.innerHTML = dt.toLocaleDateString("en-us", dateoptions);
+    locTime.innerHTML = dt.toLocaleTimeString("en-us", timeoptions);
+</script>
+<div class="content container" style="margin-top: 20px">
+    <div class="col-sm-3 clearfix">
+        <div class="bs-component">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <dev id="locTime" style="font-size: 42px; color: #666"></dev>
+                    <div id="locDate"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Visiors</div>
+                <div class="panel-body">
+                    <p>Visitor1 is reading post one</p>
+                    <p>Visitor2 is reading post two</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-5">
+        <div class="bs-component">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    Post statistics
+                </div>
+                <div class="panel-footer">Panel footer</div>
+            </div>
+            <div class="btn btn-primary btn-xs" id="source-button" style="display: none;">&lt; &gt;</div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="bs-component">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    Comment statistics
+                </div>
+                <div class="panel-footer">Panel footer</div>
+            </div>
+            <div class="btn btn-primary btn-xs" id="source-button" style="display: none;">&lt; &gt;</div>
+        </div>
+    </div>
 </div>

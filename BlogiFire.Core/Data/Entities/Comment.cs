@@ -15,5 +15,6 @@ namespace BlogiFire.Core.Data
         public string UserAgent { get; set; }
         public DateTime Published { get; set; }
         public bool IsApproved { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

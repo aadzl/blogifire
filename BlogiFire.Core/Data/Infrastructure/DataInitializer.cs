@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,8 +50,30 @@ namespace BlogiFire.Core.Data
                     post.Saved = post.Published;
 
                     db.Posts.Add(post);
+                    db.SaveChanges();
+
+                    // add comments to every third post
+                    if (i % 3 == 0)
+                    {
+                        var comments = GetComments();
+                        foreach (var com in comments)
+                        {
+                            var c = new Comment
+                            {
+                                Author = "visitor" + i.ToString(),
+                                Email = "visitor" + i.ToString() + "@us.com",
+                                Content = com,
+                                PostId = post.Id,
+                                IsApproved = true,
+                                Published = DateTime.UtcNow.AddHours((i - 15) * 5 * blog.Id)
+                            };
+                            db.Comments.Add(c);
+                            post.Comments++;
+                        }
+                        db.SaveChanges();
+                    }
                 }
-                db.SaveChanges();
+                
             }
         }
 
@@ -66,23 +89,36 @@ namespace BlogiFire.Core.Data
         string GetContent()
         {
             var sb = new StringBuilder();
-            int iRnd = _rnd.Next(3, 20); 
+            int iRnd = _rnd.Next(3, 10); 
             
-            // for every post, randomly get 3 to 20 paragraphs
+            // for every post, randomly get 3 to 10 paragraphs
             for (int i = 0; i < iRnd; i++)
             {
                 int iRnd2 = _rnd.Next(0, SeedData.Paragraphs.Length);
-                sb.Append("<br/>" + SeedData.Paragraphs[iRnd2]);
+                var par = SeedData.Paragraphs[iRnd2];
+                if (par.StartsWith("<"))
+                {
+                    sb.Append(par);
+                }
+                else
+                {
+                    sb.Append("<p>" + par + "</p>");
+                }
             }
             return sb.ToString();
         }
 
-        string GetParagraph()
+        List<string> GetComments()
         {
-            Random rnd2 = new Random();
-            int iRnd2 = rnd2.Next(0, SeedData.Paragraphs.Length);
+            int commCnt = _rnd.Next(1, 5);
+            var comments = new List<string>();
 
-            return iRnd2.ToString(); // SeedData.Paragraphs[iRnd2];
+            for (int i = 0; i < commCnt; i++)
+            {
+                int commRnd = _rnd.Next(0, SeedData.Comments.Length);
+                comments.Add(SeedData.Comments[commRnd]);
+            }
+            return comments;
         }
     }
 }

@@ -38,11 +38,12 @@ namespace Sample.Migrations
                         Email = c.String(),
                         Ip = c.String(),
                         IsApproved = c.Boolean(nullable: false),
+                        IsSelected = c.Boolean(nullable: false),
                         ParentId = c.Int(nullable: false),
-                        PostId = c.Int(nullable: false),
                         Published = c.DateTime(nullable: false),
                         UserAgent = c.String(),
-                        Website = c.String()
+                        Website = c.String(),
+                        PostId = c.Int(nullable: false)
                     })
                 .PrimaryKey("PK_bf_comments", t => t.Id);
             
@@ -51,7 +52,6 @@ namespace Sample.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         AuthorName = c.String(),
-                        BlogId = c.Int(nullable: false),
                         Comments = c.Int(nullable: false),
                         CommentsEnabled = c.Boolean(nullable: false),
                         Content = c.String(),
@@ -60,13 +60,22 @@ namespace Sample.Migrations
                         Saved = c.DateTime(nullable: false),
                         Slug = c.String(),
                         Tags = c.String(),
-                        Title = c.String()
+                        Title = c.String(),
+                        BlogId = c.Int(nullable: false)
                     })
                 .PrimaryKey("PK_bf_posts", t => t.Id);
+            
+            migrationBuilder.AddForeignKey("bf_comments", "FK_bf_comments_bf_posts_PostId", new[] { "PostId" }, "bf_posts", new[] { "Id" }, cascadeDelete: false);
+            
+            migrationBuilder.AddForeignKey("bf_posts", "FK_bf_posts_bf_blogs_BlogId", new[] { "BlogId" }, "bf_blogs", new[] { "Id" }, cascadeDelete: false);
         }
         
         public override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey("bf_comments", "FK_bf_comments_bf_posts_PostId");
+            
+            migrationBuilder.DropForeignKey("bf_posts", "FK_bf_posts_bf_blogs_BlogId");
+            
             migrationBuilder.DropTable("bf_blogs");
             
             migrationBuilder.DropTable("bf_comments");

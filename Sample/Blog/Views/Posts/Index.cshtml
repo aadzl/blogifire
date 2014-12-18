@@ -10,7 +10,7 @@
 <div class="posts">
     @foreach (BlogiFire.Core.Data.Post post in postList)
     {
-    <article itemprop="blogPost" itemtype="http://schema.org/BlogPosting" itemscope="" data-id="@post.Slug" class="post">
+    <article itemprop="blogPost" itemtype="http://schema.org/BlogPosting" itemscope="" data-id="@post.Slug" class="post clearfix">
         <header class="jumbotron">
             <h1 itemprop="headline name">
                 <a href='@Url.Content("~/blog/post/" + post.Slug)' itemprop="url">@post.Title</a>

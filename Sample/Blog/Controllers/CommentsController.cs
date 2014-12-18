@@ -1,52 +1,58 @@
 ﻿using BlogiFire.Core.Data;
 using Microsoft.AspNet.Mvc;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
 
 namespace BlogiFire.Controllers
 {
-    [Route("blog")]
+    [Route("blog/comments")]
     public class CommentsController : Controller
     {
         #region Constructor and private memeber
 
-        ICommentRepository commentsDb;
+        ICommentRepository _commentsDb;
         int pageSize = 10;
 
-        public CommentsController(ICommentRepository commentsDb, IBlogRepository blogsDb)
+        public CommentsController(ICommentRepository commentsDb)
         {
-            this.commentsDb = commentsDb;
+            _commentsDb = commentsDb;
         }
 
         #endregion
 
-        // GET: blog
-        [Route("comments")]
+        // GET: blog/comments
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             int page = 1;
             ViewBag.Title = "Blog comments ";
-            var comments = await commentsDb.Find(p => p.IsApproved == true, page, pageSize);
 
-            //ViewBag.NewerPage = 0;
-            //await GetOlderPage(page);
-
+            var comments = await _commentsDb.Find(p => p.IsApproved == true, page, pageSize);
             return View("~/Blog/Views/Comments/Index.cshtml", comments.ToList());
         }
 
-        // GET: blog/comment/my-comment
-        [Route("comments/{id}")]
+        // GET: blog/comments/2
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> Single(int id)
         {
-            var comments = await commentsDb.Find(c => c.Id == id);
+            var comments = await _commentsDb.Find(c => c.Id == id);
             var comment = comments.FirstOrDefault();
             ViewBag.Title = comment.Author;
 
             return View("~/Blog/Views/Comments/Comment.cshtml", comment);
         }
 
-        [Route("comments/add")]
+        // GET: blog/comments/post-slug
+        [HttpGet("{slug}")]
+        public async Task<IActionResult> PostComments(string slug)
+        {
+            var comments = await _commentsDb.GetPostComments(slug);
+            return Json(comments);
+        }
+
+        // POST: blog/comments
+        [HttpPost]
         public async Task<ActionResult> Post([FromBody]Comment item)
         {
             if (!ModelState.IsValid)
@@ -56,7 +62,7 @@ namespace BlogiFire.Controllers
             }
 
             item.Published = DateTime.UtcNow;
-            await commentsDb.Add(item);
+            await _commentsDb.Add(item);
 
             Context.Response.StatusCode = 201;
             return new ObjectResult("success");

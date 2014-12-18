@@ -1,8 +1,8 @@
 ﻿(function () {
     "use strict";
-    angular.module("blogifire").controller("commentsCtrl", ["commentsResource", commentsCtrl]);
+    angular.module("blogifire").controller("commentsCtrl", ["commentsResource", "dataService", commentsCtrl]);
 
-    function commentsCtrl(commentsResource) {
+    function commentsCtrl(commentsResource, dataService) {
         var vm = this;
         vm.Title = "Comments";
         vm.pager = {};
@@ -14,6 +14,19 @@
                 initPager(vm.pager);
             });
         }  
+        vm.processChecked = function (action) {
+            dataService.processChecked(ApiRoot + "comments/" + action, vm.pager.selectedItems)
+            .success(function (data) {
+                toastr.success("Processed");
+                if ($('#chkAll')) {
+                    $('#chkAll').prop('checked', false);
+                }
+                vm.load();
+            })
+            .error(function (data) {
+                toastr.error("Failed");
+            });
+        }
 
         vm.showMore = function () {
             vm.pager.nextPage();

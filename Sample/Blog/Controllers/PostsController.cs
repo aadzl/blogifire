@@ -10,15 +10,11 @@ namespace BlogiFire.Web
     {
         #region Constructor and private memeber
 
-        IPostRepository postsDb;
-        IBlogRepository blogsDb;
-        ICommentRepository commentsDb;
+        IPostRepository _postDb;
         int pageSize;
-        public PostsController(IPostRepository postsDb, IBlogRepository blogsDb, ICommentRepository commentsDb)
+        public PostsController(IPostRepository postsDb)
         {
-            this.postsDb = postsDb;
-            this.blogsDb = blogsDb;
-            this.commentsDb = commentsDb;
+            _postDb = postsDb;
             pageSize = 10;
         }
 
@@ -29,7 +25,7 @@ namespace BlogiFire.Web
         {
             int page = 1;
             ViewBag.Title = "Blog posts ";
-            var posts = await postsDb.Find(p => p.Visible == true, page, pageSize);
+            var posts = await _postDb.Find(p => p.Visible == true, page, pageSize);
 
             ViewBag.NewerPage = 0;
             await GetOlderPage(page);
@@ -42,7 +38,7 @@ namespace BlogiFire.Web
         public async Task<IActionResult> Page(int page)
         {
             ViewBag.Title = "Blog posts ";
-            var posts = await postsDb.Find(p => p.Visible == true, page, pageSize);
+            var posts = await _postDb.Find(p => p.Visible == true, page, pageSize);
 
             ViewBag.NewerPage = page - 1;
             await GetOlderPage(page);
@@ -54,11 +50,9 @@ namespace BlogiFire.Web
         [Route("post/{slug}")]
         public async Task<IActionResult> Single(string slug)
         {
-            var vm = new PostViewModel();
-            var posts = await postsDb.Find(p => p.Slug == slug);
-            vm.Post = posts.FirstOrDefault();
-            vm.Comments = await commentsDb.Find(c => c.PostId == vm.Post.Id);
-            ViewBag.Title = vm.Post.Title;
+            var posts = await _postDb.Find(p => p.Slug == slug);
+            var vm = posts.FirstOrDefault();
+            ViewBag.Title = vm.Title;
 
             return View("~/Blog/Views/Posts/Post.cshtml", vm);
         }
@@ -67,7 +61,7 @@ namespace BlogiFire.Web
         private async Task GetOlderPage(int page)
         {
             ViewBag.OlderPage = page + 1;
-            var olderPosts = await postsDb.Find(p => p.Visible == true, page + 1, pageSize);
+            var olderPosts = await _postDb.Find(p => p.Visible == true, page + 1, pageSize);
             if (olderPosts == null || olderPosts.Count() < 1)
             {
                 ViewBag.OlderPage = 0;

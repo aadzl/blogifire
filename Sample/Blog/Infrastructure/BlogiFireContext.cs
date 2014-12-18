@@ -22,6 +22,9 @@ namespace BlogiFire.Web
             builder.Entity<Post>().ForRelational().Table("bf_posts");
             builder.Entity<Comment>().ForRelational().Table("bf_comments");
 
+            builder.Entity<Post>().ForeignKey<Blog>(p => p.BlogId);
+            builder.Entity<Comment>().ForeignKey<Post>(c => c.PostId);
+
             base.OnModelCreating(builder);
         }
     }

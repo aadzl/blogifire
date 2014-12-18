@@ -10,6 +10,7 @@ namespace BlogiFire.Core.Data
         Task<List<Comment>> All();
         Task<List<Comment>> Find(Expression<Func<Comment, bool>> predicate, int page = 1, int pageSize = 10);
         Task<Comment> GetById(int id);
+        Task<List<Comment>> GetPostComments(string slug);
         Task Add(Comment item);
         Task Update(Comment item);
         Task Delete(int id);
