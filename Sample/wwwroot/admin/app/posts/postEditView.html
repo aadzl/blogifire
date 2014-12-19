@@ -1,39 +1,49 @@
 ﻿<link rel="stylesheet" href="app/editors/summernote/summernote.css">
 <style>
-	.note-toolbar { background-color: #333 !important; }
+	/*.note-toolbar { background-color: #333 !important; }
     .note-toolbar .btn-default { border: 0 !important; }
 	.note-editor .btn { color: white !important; background-color: #333; margin: 13px 0 13px 1px; }
 	.note-editor .btn:hover,  .note-editor .btn:active { background-color: #333 !important;}
 	.note-editor .note-toolbar { padding-bottom: 0 !important; border: 0 none; }
 	.note-editable { line-height: normal !important; text-transform: none; font-size: 1.1em; background-color: #fff !important; }
 	.edit-controls .form-control { background-color: #fff !important; color: #333 !important; }
-	.edit-controls { margin-top: 0; background-color: #fff; }
+	.edit-controls { margin-top: 0; background-color: #fff; }*/
 </style>
-
-<div class="header">       
-    <div class="summernote"></div>
-	<div class="edit-controls" style="display: none;">
-		<fieldset>
-			<div class="form-group">
-				<div class="col-lg-12">
-                    <input type="text" id="txtTitle" tabindex="1" ng-model="vm.postCopy.Title" placeholder="Post title..." class="form-control" />
-				</div>
-
-                <div class="col-lg-12">
-                    <input type="text" id="txtTags" tabindex="2" placeholder="Tags, comma delimeted" class="form-control" />
-                </div>
-			</div>
-		</fieldset>
-	</div>
+<div class="header">
+    <ul class="nav-custom container">
+        <li class="item"><a href="#/">Dashboard</a></li>
+        <li class="item active"><a href="#/posts">Posts</a></li>
+        <li class="item"><a href="#/comments">Comments</a></li>
+        <li class="item"><a href="#/settings">Settings</a></li>
+        <li class="item item-right item-signout"><a href="/">SignOut</a></li>
+        <li class="item item-right"><a href="/blog">Blog</a></li>
+    </ul>
 </div>
-<!--<div class="footer">
-	<div class="pull-left">&copy; <a href="#">BlogiFire</a> 0.1</div>
-</div>-->
+<div class="content container">
+    <div class="col-lg-12">
+        <input type="text" id="txtTitle" tabindex="1" ng-model="vm.postCopy.Title" placeholder="Post title..." class="form-control" />
+    </div>
+    <div class="col-lg-12">
+        <div class="summernote"></div>
+    </div>
+    <div class="col-lg-12">
+        <input type="text" id="txtTags" tabindex="2" placeholder="Tags, comma delimeted" class="form-control" />
+    </div>
+    <div class="col-lg-9">
+        <input type="text" id="txtSlug" tabindex="2" placeholder="post-slug" ng-model="vm.postCopy.Slug" class="form-control" />
+    </div>
+    <div class="col-lg-3">
+        <button class="btn btn-success pull-right" ng-click="vm.publish()"><i class="fa fa-check"></i> PUBLISH</button>
+        <button class="btn btn-primary pull-right" ng-click="vm.save()">SAVE</button>
+        <button class="btn btn-info pull-right" ng-click="vm.cancel()">CANCEL</button>
+    </div>
+</div>
+
 <script type="text/javascript" src="app/editors/summernote/summernote.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('.summernote').summernote({
-		    height: $(document).height() - 220,
+		    height: $(document).height() - 320,
 			toolbar: [
 			   ['style', ['style']],
 			   ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -48,26 +58,26 @@
 				}
 			}
 		});
-		var b1 = '<div class="user-section pull-right"><div class="user-section-dropdown"><ul class="nav-custom container">';
-		b1 += '<li><a href="index.html#/profile"><i class="fa fa-user"></i>Profile</a></li>';
-		b1 += '<li><a href="index.html#/settings"><i class="fa fa-cog"></i>Settings</a></li>';
-		b1 += '<li><a href="index.html#/help"><i class="fa fa-question"></i>Help</a></li>';
-		b1 += '<li><a href="#"><i class="fa fa-sign-out"></i>sign out</a></li>';
-		b1 += '</ul></div></div>';
+		//var b1 = '<div class="user-section pull-right"><div class="user-section-dropdown"><ul class="nav-custom container">';
+		//b1 += '<li><a href="index.html#/profile"><i class="fa fa-user"></i>Profile</a></li>';
+		//b1 += '<li><a href="index.html#/settings"><i class="fa fa-cog"></i>Settings</a></li>';
+		//b1 += '<li><a href="index.html#/help"><i class="fa fa-question"></i>Help</a></li>';
+		//b1 += '<li><a href="#"><i class="fa fa-sign-out"></i>sign out</a></li>';
+		//b1 += '</ul></div></div>';
 
-		var b2 = '<ul class="nav-actions pull-right">';
-		b2 += '<li><a href="" ng-click="vm.publish()"><i class="fa fa-check"></i>Publish</a></li>';
-		b2 += '<li><a href="" ng-click="vm.save()"><i class="fa fa-save"></i>Save</a></li>';
-		b2 += '</ul>';
+		//var b2 = '<ul class="nav-actions pull-right">';
+		//b2 += '<li><a href="" ng-click="vm.publish()"><i class="fa fa-check"></i>Publish</a></li>';
+		//b2 += '<li><a href="" ng-click="vm.save()"><i class="fa fa-save"></i>Save</a></li>';
+		//b2 += '</ul>';
 
-		//$('.btn-toolbar').prepend($('<ul class="nav-custom container"><li><a href="" ng-click="vm.cancel()"><i class="fa fa-arrow-left"></i>Back</a></li></ul>'));
-		//$('.btn-toolbar').append($(b1));
-	    //$('.btn-toolbar').append($(b2));
+		////$('.btn-toolbar').prepend($('<ul class="nav-custom container"><li><a href="" ng-click="vm.cancel()"><i class="fa fa-arrow-left"></i>Back</a></li></ul>'));
+		////$('.btn-toolbar').append($(b1));
+	    ////$('.btn-toolbar').append($(b2));
 
-		$('.btn-toolbar').append($('<div class="note-style btn-group"><button tabindex="-1" title="" class="btn btn-default btn-sm btn-small" type="button" ng-click="vm.cancel()">CANCEL</button></div>'));
-		$('.btn-toolbar').append($('<div class="note-style btn-group"><button tabindex="-1" title="" class="btn btn-default btn-sm btn-small" type="button" ng-click="vm.save()">SAVE</button></div>'));
+		//$('.btn-toolbar').append($('<div class="note-style btn-group"><button tabindex="-1" title="" class="btn btn-default btn-sm btn-small" type="button" ng-click="vm.cancel()">CANCEL</button></div>'));
+		//$('.btn-toolbar').append($('<div class="note-style btn-group"><button tabindex="-1" title="" class="btn btn-default btn-sm btn-small" type="button" ng-click="vm.save()">SAVE</button></div>'));
 
-		$('.edit-controls').show(); // hide/show to prevent flicking in toolbar on load
+		//$('.edit-controls').show(); // hide/show to prevent flicking in toolbar on load
 		$('.note-editable').focus();
 	});
 </script>
