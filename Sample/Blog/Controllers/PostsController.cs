@@ -11,10 +11,12 @@ namespace BlogiFire.Web
         #region Constructor and private memeber
 
         IPostRepository _postDb;
+        IBlogRepository _blogDb;
         int pageSize;
-        public PostsController(IPostRepository postsDb)
+        public PostsController(IPostRepository postsDb, IBlogRepository blogDb)
         {
             _postDb = postsDb;
+            _blogDb = blogDb;
             pageSize = 10;
         }
 
@@ -55,6 +57,26 @@ namespace BlogiFire.Web
             ViewBag.Title = vm.Title;
 
             return View("~/Blog/Views/Posts/Post.cshtml", vm);
+        }
+
+        // GET: blog/rss
+        [Route("rss")]
+        public async Task<IActionResult> Rss()
+        {
+            var syndication = new Core.Services.Syndication();
+            var vm = await syndication.GetAppRss();
+
+            return View("~/Blog/Views/Posts/Rss.cshtml", vm);
+        }
+
+        // GET: blog/rss/bob
+        [Route("rss/{author}")]
+        public async Task<IActionResult> Rss(string author)
+        {
+            var syndication = new Core.Services.Syndication();
+            var vm = await syndication.GetBlogRss(author);
+
+            return View("~/Blog/Views/Posts/Rss.cshtml", vm);
         }
 
         // get page number by quering if older records exist

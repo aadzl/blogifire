@@ -46,7 +46,7 @@ namespace Sample
             // You need to add Microsoft.AspNet.Mvc.WebApiCompatShim package to project.json
             // services.AddWebApiConventions();
 
-            BlogiFire.Web.Infrastructure.AddServices(services, Configuration);
+            BlogiFire.Web.Infrastructure.AddServices(services);
         }
 
         // Configure is called after ConfigureServices is called.

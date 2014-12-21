@@ -1,0 +1,10 @@
+﻿{
+    "BlogiFire": {
+        "RelativeRoot": "/bf/blog",
+        "AbsoluteRoot": "http://localhost/bf/blog",
+        "ConnectionString": "Server=.\\SQLEXPRESS;Database=BlogiFire;Trusted_Connection=True;MultipleActiveResultSets=true",
+        "PageSize": 10,
+        "Title": "BlogiFire blogs",
+        "Description": "This is BlogiFire blogs"
+    }
+}

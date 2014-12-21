@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+@{
+    var vm = (BlogiFire.Core.Data.RssViewModel)Model;
+    this.Context.Response.ContentType = "application/xml";
+}
+<rss version="2.0">
+    <channel>
+        <title>@vm.Title</title>
+        <description>@vm.Description</description>
+        <link>@vm.Link</link>
+        <language>en-us</language>
+        @foreach (var p in vm.Posts)
+        {
+            <item>
+                <guid ispermalink="true">@p.Link</guid>
+                <title>@Html.Encode(p.Title)</title>
+                <description>@Html.Raw(Html.Encode(p.Description))</description>
+                <pubdate>@p.Updated.ToUniversalTime().ToString("r")</pubdate>
+            </item>
+        }
+    </channel>
+</rss>

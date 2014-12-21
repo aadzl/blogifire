@@ -60,6 +60,13 @@ namespace BlogiFire.Controllers
                 Context.Response.StatusCode = 400;
                 return new ObjectResult("Model is invalid");
             }
+            var ip = Context.GetFeature<Microsoft.AspNet.HttpFeature.IHttpConnectionFeature>();
+            if (ip != null)
+            {
+                item.Ip = ip.RemoteIpAddress.ToString();
+            }
+            item.UserAgent = Request.Headers["User-Agent"];
+            // var refer = Request.Headers["Referer"];
 
             item.Published = DateTime.UtcNow;
             await _commentsDb.Add(item);

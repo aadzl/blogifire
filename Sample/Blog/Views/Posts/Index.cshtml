@@ -1,11 +1,8 @@
 ﻿@{
     Layout = "/Views/Shared/_Layout.cshtml";
-    //Layout = "/Blog/Views/Themes/Standard/_Layout.cshtml";
-    //var posts = (IList<BlogiFire.Models.Post>)Model;
     int olderPage = (int)ViewBag.OlderPage;
     int newerPage = (int)ViewBag.NewerPage;
-
-    IList<BlogiFire.Core.Data.Post> postList = (IList<BlogiFire.Core.Data.Post>)Model;
+    var postList = (IList<BlogiFire.Core.Data.Post>)Model;
 }
 <div class="posts">
     @foreach (BlogiFire.Core.Data.Post post in postList)
