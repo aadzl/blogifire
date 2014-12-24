@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BlogiFire.Core.Data
 {
@@ -74,15 +73,6 @@ namespace BlogiFire.Core.Data
                     }
                 }
                 
-            }
-        }
-
-        public void SeedPosts2()
-        {
-            for (int i = 1; i <= 15; i++)
-            {
-                var blogContent = string.Format("Paragraphs for post {0} :: {1}", i, GetContent());
-                System.Diagnostics.Debug.WriteLine(blogContent);
             }
         }
 

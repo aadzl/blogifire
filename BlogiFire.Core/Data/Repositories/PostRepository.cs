@@ -8,20 +8,20 @@ namespace BlogiFire.Core.Data
 {
     public class PostRepository : IPostRepository
     {
-        BlogiFireContext db;
+        BlogiFireContext _db;
         public PostRepository()
         {
-            this.db = new BlogiFireContext();
+            _db = new BlogiFireContext();
         }
         public async Task<List<Post>> All()
         {
-            var posts = db.Posts.AsNoTracking().AsQueryable();
+            var posts = _db.Posts.AsNoTracking().AsQueryable();
             return await posts.OrderByDescending(p => p.Published).ToListAsync();
         }
         public async Task<List<Post>> Find(Expression<Func<Post, bool>> predicate, int page = 1, int pageSize = 10)
         {
             var skip = page * pageSize - pageSize;
-            var posts = db.Posts.AsNoTracking().AsQueryable();
+            var posts = _db.Posts.AsNoTracking().AsQueryable();
 
             posts = posts.Where(predicate).OrderByDescending(p => p.Published);
 
@@ -36,7 +36,7 @@ namespace BlogiFire.Core.Data
         }
         public async Task<Post> GetById(int id)
         {
-            return await db.Posts.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            return await _db.Posts.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
         public async Task<List<Post>> GetBlogPosts(string author)
         {

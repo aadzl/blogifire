@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlogiFire.Api
@@ -34,7 +35,7 @@ namespace BlogiFire.Api
                 var postComments = await _commentsDb.Find(c => c.PostId == post.Id);
                 comments.AddRange(postComments);
             }              
-            return Json(comments);
+            return Json(comments.OrderByDescending(c => c.Published));
         }
 
         [HttpGet("{id:int}")]
@@ -43,14 +44,14 @@ namespace BlogiFire.Api
             return Json(await _commentsDb.GetById(id));
         }
 
-        [Route("comments/post/{id:int}")]
+        [HttpGet("post/{id:int}")]
         public async Task<ActionResult> GetByPost(int id)
         {
             var comments = await _commentsDb.Find(c => c.PostId == id);
             return Json(comments);
         }
 
-        [Route("comments/add")]
+        [HttpPost("add")]
         public async Task<ActionResult> Post([FromBody]Comment item)
         {
             if (!ModelState.IsValid)
@@ -71,7 +72,6 @@ namespace BlogiFire.Api
             return new ObjectResult(item);
         }
 
-        // PUT: blog/api/comments/delete
         [HttpPut("{operation}")]
         public async Task<string> Process([FromBody]List<Comment> items, string operation)
         {

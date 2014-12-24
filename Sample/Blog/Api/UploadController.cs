@@ -5,6 +5,8 @@ using System.IO;
 
 namespace BlogiFire.Api
 {
+    [Authorize]
+    [Route("blog/api/[controller]")]
     public class UploadController : Controller
     {
         private readonly IApplicationEnvironment _appEnvironment;
@@ -14,8 +16,7 @@ namespace BlogiFire.Api
             _appEnvironment = appEvironment;
         }
 
-        [Route("blog/api/upload/{fileName}")]
-        [Authorize]
+        [HttpPost("upload/{fileName}")]
         public string Post(string fileName)
         {
             /*

@@ -41,3 +41,16 @@
 .table-date { width: 150px; }
 .btn-showmore { text-transform: uppercase; font-size: 12px; cursor: pointer; }
 .btn-showmore:hover { background-color: #eee; }
+
+.content [type="text"] { border: 0; background-color: #ececec; margin: 8px 0; }
+.content [type="textarea"] { border: 1px solid #fff; }
+.postedit { padding-top: 15px; }
+.editor { margin: 10px 0; }
+.note-editable { border: 1px solid #fff !important; }
+.note-toolbar .btn { background-color: #ececec; }
+.note-editor .note-toolbar { background-color: #ececec !important; border: 1px solid #fff !important; }
+.note-editor { border: 1px solid #fff !important; }
+.action-btns .btn { margin: 10px 0 8px 5px; }
+.note-editor .note-statusbar .note-resizebar { border-top: 1px solid #fff !important; }
+.note-editor .note-editable { padding-left: 0 !important; }
+.postedit { padding: 15px 0 !important; }

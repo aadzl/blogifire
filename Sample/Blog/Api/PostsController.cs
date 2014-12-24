@@ -23,7 +23,6 @@ namespace BlogiFire.Api
 
         #endregion
 
-        // GET: blog/api/posts
         [HttpGet]
         public async Task<ActionResult> Get()
         {
@@ -36,14 +35,12 @@ namespace BlogiFire.Api
             return Json(posts.Where(p => p.BlogId == blogId).ToList());
         }
 
-        // GET: blog/api/posts/2
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id)
         {
             return Json(await postsDb.GetById(id));
         }
 
-        // POST: blog/api/posts
         [HttpPost]
         public async Task<ActionResult> Post([FromBody]Post item)
         {
@@ -83,7 +80,6 @@ namespace BlogiFire.Api
             }
         }
 
-        // PUT: blog/api/posts/delete
         [HttpPut("{operation}")]
         public async Task<string> Process([FromBody]List<Post> items, string operation)
         {

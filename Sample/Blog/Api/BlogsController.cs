@@ -6,36 +6,36 @@ using System.Linq;
 namespace BlogiFire.Api
 {
     [Authorize]
-    [Route("blog/api")]
+    [Route("blog/api/[controller]")]
     public class BlogsController : Controller
     {
-        IBlogRepository db;
+        IBlogRepository _db;
         public BlogsController(IBlogRepository db)
         {
-            this.db = db;
+            _db = db;
         }
 
-        [Route("blogs")]
+        [HttpGet]
         public async Task<ActionResult> Get()
         {
-            return Json(await db.All());
+            return Json(await _db.All());
         }
 
-        [Route("blogs/{id:int}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult> Get(int id)
         {
-            return Json(await db.GetById(id));
+            return Json(await _db.GetById(id));
         }
 
-        [Route("settings")]
+        [HttpGet("settings")]
         public async Task<ActionResult> GetSettings()
         {
-            var blogs = await db.Find(b => b.AuthorId == User.Identity.Name);
+            var blogs = await _db.Find(b => b.AuthorId == User.Identity.Name);
             var blog = blogs.FirstOrDefault();
             return Json(blog);
         }
 
-        [Route("blogs/add")]
+        [HttpPost("add")]
         public async Task<ActionResult> Post([FromBody]Blog item)
         {
             if (!ModelState.IsValid)
@@ -46,20 +46,20 @@ namespace BlogiFire.Api
 
             if (item.Id > 0)
             {
-                await db.Update(item);
+                await _db.Update(item);
             }
             else
             {
-                await db.Add(item);
+                await _db.Add(item);
                 Context.Response.StatusCode = 201;
             }
             return new ObjectResult(item);
         }
         
-        [Route("blogs/remove/{id:int}")]
+        [HttpDelete("remove/{id:int}")]
         public async Task<string> Delete(int id)
         {
-            await db.Delete(id);
+            await _db.Delete(id);
             return "Deleted";
         }
     }

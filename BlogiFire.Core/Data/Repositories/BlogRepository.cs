@@ -8,27 +8,27 @@ namespace BlogiFire.Core.Data
 {
     public class BlogRepository : IBlogRepository
     {
-        BlogiFireContext db;
+        BlogiFireContext _db;
         public BlogRepository()
         {
-            this.db = new BlogiFireContext();
+            _db = new BlogiFireContext();
         }
         public async Task<List<Blog>> All()
         {
-            return await db.Blogs.OrderBy(b => b.Title).ToListAsync();
+            return await _db.Blogs.OrderBy(b => b.Title).ToListAsync();
         }
         public async Task<List<Blog>> Find(Expression<Func<Blog, bool>> predicate)
         {
-            return await db.Blogs.Where(predicate).ToListAsync();
+            return await _db.Blogs.Where(predicate).ToListAsync();
         }
         public async Task<Blog> GetById(int id)
         {
-            return await db.Blogs.FirstOrDefaultAsync(b => b.Id == id);
+            return await _db.Blogs.FirstOrDefaultAsync(b => b.Id == id);
         }
         public async Task Add(Blog item)
         {
-            db.Blogs.Add(item);
-            await db.SaveChangesAsync();
+            _db.Blogs.Add(item);
+            await _db.SaveChangesAsync();
 
             if (AppSettings.InitializeData)
             {
@@ -40,11 +40,11 @@ namespace BlogiFire.Core.Data
         {
             try
             {
-                var dbItem = db.Blogs.SingleOrDefault(i => i.Id == item.Id);
+                var dbItem = _db.Blogs.SingleOrDefault(i => i.Id == item.Id);
 
                 dbItem.Title = item.Title;
 
-                await db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -54,9 +54,9 @@ namespace BlogiFire.Core.Data
         }
         public async Task Delete(int id)
         {
-            var item = await db.Blogs.FirstOrDefaultAsync(i => i.Id == id);
-            db.Blogs.Remove(item);
-            await db.SaveChangesAsync();
+            var item = await _db.Blogs.FirstOrDefaultAsync(i => i.Id == id);
+            _db.Blogs.Remove(item);
+            await _db.SaveChangesAsync();
         }
     }
 }
